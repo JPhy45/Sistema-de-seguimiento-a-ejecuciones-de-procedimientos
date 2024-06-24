@@ -32,6 +32,11 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
             
             phases = new Queue<Phases>();
         }
+        public Operations(): base("A", "A")
+        {
+            this.phases = new Queue<Phases>();
+
+        }
         #endregion
 
         #region Methods
