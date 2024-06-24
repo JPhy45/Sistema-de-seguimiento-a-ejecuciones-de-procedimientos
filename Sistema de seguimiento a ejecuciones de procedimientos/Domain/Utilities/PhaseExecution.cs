@@ -9,7 +9,7 @@ using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type;
 
 namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities
 {
-    internal class PhaseExecution : Execution
+     public class PhaseExecution : Execution
     {
         #region Properties
         /// <summary>
@@ -20,6 +20,10 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         /// El codigo de gerarquia superior en este caso de operaciones
         /// </summary>
         public string? UpperCode { get; set; }
+        /// <summary>
+        /// llave foranea para las fases
+        /// </summary>
+        public Guid PhaseId { get; set; }
         #endregion
 
 

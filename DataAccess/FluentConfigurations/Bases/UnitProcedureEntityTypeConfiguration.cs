@@ -14,13 +14,12 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace DataAccess.FluentConfigurations.Bases
 {
-    public class OperationsEntityTypeConfiguration : IEntityTypeConfiguration<Operations> 
+    public class UnitProcedureEntityTypeConfiguration : IEntityTypeConfiguration<UnitProcedure>
     {
-        public void Configure(EntityTypeBuilder<Operations> builder) 
+        public void Configure(EntityTypeBuilder<UnitProcedure> builder)
         {
-            builder.ToTable("Operaciones");
+            builder.ToTable("Procedimientos");
             builder.HasBaseType(typeof(Base));
-
         }
     }
 }

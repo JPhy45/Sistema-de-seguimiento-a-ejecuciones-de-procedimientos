@@ -10,17 +10,15 @@ using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common;
 using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
 using DataAccess.FluentConfigurations.Common;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Security.Cryptography.X509Certificates;
 
-namespace DataAccess.FluentConfigurations.Bases
+namespace DataAccess.FluentConfigurations.Executions
 {
-    public class OperationsEntityTypeConfiguration : IEntityTypeConfiguration<Operations> 
+    public class ExecutionEntityTypeConfiguration : EntityTypeConfigurationBase<Execution>
     {
-        public void Configure(EntityTypeBuilder<Operations> builder) 
+        public override void Configure(EntityTypeBuilder<Execution> builder)
         {
-            builder.ToTable("Operaciones");
-            builder.HasBaseType(typeof(Base));
-
+            builder.ToTable("Execution");
+            base.Configure(builder);
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
         /// Fecha y hora de inicio 
         /// </summary>
         public string? UnitCode { get; set; }
+        public ICollection<ProcedureOperation> ProcedureOperation { get; set; } = new List<ProcedureOperation>();
 
         #endregion
 
@@ -34,7 +35,9 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
        
 
         }
+
         #endregion
 
+        
     }
 }

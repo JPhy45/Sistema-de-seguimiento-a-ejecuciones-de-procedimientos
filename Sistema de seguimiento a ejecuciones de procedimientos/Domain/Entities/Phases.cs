@@ -9,6 +9,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
 {
     public class Phases : Base
     {
+        public virtual ICollection<OperationPhase> OperationsPhase { get; set; } = new List<OperationPhase>();
 
         #region Constructors
         /// <summary>
