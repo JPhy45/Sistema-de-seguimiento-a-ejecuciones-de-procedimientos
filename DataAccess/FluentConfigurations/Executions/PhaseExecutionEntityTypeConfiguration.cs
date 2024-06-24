@@ -17,7 +17,7 @@ namespace DataAccess.FluentConfigurations.Executions
     {
         public void Configure(EntityTypeBuilder<PhaseExecution> builder)
         {
-            builder.ToTable("Phases");
+            builder.ToTable("PhaseExecution");
             builder.HasBaseType(typeof(Execution));
             builder.HasOne(PE => PE.Phase).
                 WithMany().HasForeignKey(PE => PE.PhaseId);
