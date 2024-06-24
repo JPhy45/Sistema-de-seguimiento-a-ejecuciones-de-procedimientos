@@ -20,7 +20,10 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         /// variable para guardar el codigo de la gerarquia superior en este caso el de las Unidades de procedimiento
         /// </summary>
         public string? UpperCode { get; set; }
-
+        /// <summary>
+        /// id de la o
+        /// </summary>
+        public Guid OperationId { get; set; }
         #endregion
 
         #region Constructors
@@ -28,6 +31,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         {
             Operation = operations;
         }
+        public OperationExecution() { }
         #endregion
     }
 }

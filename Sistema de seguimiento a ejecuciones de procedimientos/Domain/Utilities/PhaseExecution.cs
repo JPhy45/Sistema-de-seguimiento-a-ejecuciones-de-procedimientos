@@ -38,6 +38,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         {
             Phase = phase;
         }
+        public PhaseExecution() { }
         #endregion
     }
 }

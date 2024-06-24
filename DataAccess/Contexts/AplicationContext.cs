@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Sqlite.Infrastructure.Internal;
 using System;
@@ -10,8 +10,8 @@ using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
 using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type;
 using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common;
 using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
-using Microsoft.Data.Sqlite;
-using System.Drawing;
+using DataAccess.FluentConfigurations.Bases;
+using DataAccess.FluentConfigurations.Executions;
 
 namespace DataAccess.Contexts
 {
@@ -81,6 +81,15 @@ namespace DataAccess.Contexts
                 WithMany(O => O.ProcedureOperation).
                 HasForeignKey(PO => PO.OperationId);
 
+
+            modelBuilder.ApplyConfiguration(new BaseEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new OperationsEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PhasesEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UnitProcedureEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ExecutionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new OperationExecutionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PhaseExecutionEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UnitExecutionEntityTypeConfiguration());
 
 
         }
