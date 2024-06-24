@@ -37,7 +37,11 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
         }
         #endregion
 
+        #region Methods
+        public ICollection<OperationPhase> OperationPhase { get; set; } = new List<OperationPhase>();
+        public ICollection<ProcedureOperation> ProcedureOperation { get; set; } = new List <ProcedureOperation>();
 
+        #endregion
 
     }
 }

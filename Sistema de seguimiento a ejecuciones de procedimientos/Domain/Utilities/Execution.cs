@@ -28,6 +28,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         public Execution() 
         {
             StartTime = DateTime.Now;
+            State = ExecutionState.iddle;
 
         }
     }

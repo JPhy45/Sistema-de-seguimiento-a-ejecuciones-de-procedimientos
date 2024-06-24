@@ -10,7 +10,7 @@ using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type;
 
 namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities
 {
-    internal class UnitExecution : Execution
+    public class UnitExecution : Execution
     {
         #region Properties
         /// <summary>
