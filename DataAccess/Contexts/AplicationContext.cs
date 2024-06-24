@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Sqlite.Infrastructure.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,8 @@ using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
 using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type;
 using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common;
 using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
-
+using Microsoft.Data.Sqlite;
+using System.Drawing;
 
 namespace DataAccess.Contexts
 {
@@ -35,6 +38,11 @@ namespace DataAccess.Contexts
         /// </summary>
         /// <param name="options"></param>
         public AplicationContext(DbContextOptions<AplicationContext> options) : base (options)
+        { 
+        }
+
+        public AplicationContext(string connectionString)
+            : base(GetOptions(connectionString))
         { 
         }
         #endregion
@@ -76,5 +84,14 @@ namespace DataAccess.Contexts
 
 
         }
+        #region Helpers
+
+        private static DbContextOptions GetOptions(string connectionString)
+        {
+            return SqliteDbContextOptionsBuilderExtensions.UseSqlite(new DbContextOptionsBuilder(), connectionString).Options;
+        }
+
+        #endregion
+
     }
 }

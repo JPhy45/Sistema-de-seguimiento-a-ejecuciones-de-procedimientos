@@ -15,10 +15,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
         /// secuencia de fases para una operacion
         /// </summary>
         public Queue<Phases> phases { get; set; }
-        /// <summary>
-        /// codigo de la operacion
-        /// </summary>
-        public string OperationCode { get; set; }
+        
 
         /// <summary>
         /// codigo de la unidad en la que se encuentra
@@ -30,9 +27,9 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
 
 
         #region Constructor
-        public Operations(string ID, string Name, string Code) : base(ID, Name)
+        public Operations(string IC, string Name) : base(IC, Name)
         {
-            this.OperationCode = Code;
+            
             phases = new Queue<Phases>();
         }
         #endregion
