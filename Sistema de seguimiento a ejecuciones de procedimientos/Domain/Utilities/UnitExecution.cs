@@ -17,6 +17,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         /// Procedimiento de unidades en ejecucion
         /// </summary>
         public UnitProcedure Unit {  get; set; }
+        public Guid UnitId { get; set; }
         #endregion
 
         #region Constructors
@@ -29,7 +30,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
 
         this.Unit = unit;
         }
-
+        public UnitExecution() { }
         #endregion
 
     }
