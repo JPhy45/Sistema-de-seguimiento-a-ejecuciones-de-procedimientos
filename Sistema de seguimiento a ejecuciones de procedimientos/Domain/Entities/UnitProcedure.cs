@@ -15,7 +15,10 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
         /// Cola para las operaciones
         /// </summary>
         public Queue<Operations> Operations { get; set; }
-        
+        /// <summary>
+        /// Codigo de la unidad a la que pertenece
+        /// </summary>
+        public string Code { get; set; }
         /// <summary>
         /// Fecha y hora de inicio 
         /// </summary>
@@ -25,9 +28,9 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
         #endregion
 
         #region Constructors
-        public UnitProcedure(string ID, string Name) : base (ID, Name)
+        public UnitProcedure(string ID, string Name, string Code) : base (ID, Name)
         {
-            
+            this.Code = Code;
             Operations = new Queue<Operations>();
        
 
