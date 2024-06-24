@@ -77,7 +77,5 @@ internal class Program
 
         var phases=appContext.Set<Phases>().ToList();
         
-
-
     }
 }
