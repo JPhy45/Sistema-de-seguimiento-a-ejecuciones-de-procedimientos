@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type;
+﻿using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
 
 
 namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities
@@ -16,7 +9,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         /// <summary>
         /// Procedimiento de unidades en ejecucion
         /// </summary>
-        public UnitProcedure Unit {  get; set; }
+        public UnitProcedure Unit { get; set; }
         public Guid UnitId { get; set; }
         #endregion
 
@@ -25,10 +18,10 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         /// constructor para la ejecucion de una unidad
         /// </summary>
         /// <param name="unit"></param>
-        public UnitExecution (UnitProcedure unit)
+        public UnitExecution(UnitProcedure unit)
         {
 
-        this.Unit = unit;
+            this.Unit = unit;
         }
         public UnitExecution() { }
         #endregion

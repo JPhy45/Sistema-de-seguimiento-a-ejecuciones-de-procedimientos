@@ -1,22 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using DataAccess.Contexts;
-using System.Threading.Tasks;
-
+﻿using DataAccess.Contexts;
+using Microsoft.EntityFrameworkCore;
 using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
-using DataAccess.FluentConfigurations.Common;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Security.Cryptography.X509Certificates;
 
 internal class Program
 {
@@ -75,7 +59,7 @@ internal class Program
         appContext.Set<UnitProcedure>().Add(unitprocedure1);
         appContext.SaveChanges();
 
-        var phases=appContext.Set<Phases>().ToList();
-       
+        var phases = appContext.Set<Phases>().ToList();
+
     }
 }

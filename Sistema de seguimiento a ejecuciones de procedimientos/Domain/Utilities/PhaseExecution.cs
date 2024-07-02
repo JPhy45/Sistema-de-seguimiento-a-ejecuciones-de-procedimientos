@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type;
+﻿using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
 
 namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities
 {
-     public class PhaseExecution : Execution
+    public class PhaseExecution : Execution
     {
         #region Properties
         /// <summary>
@@ -34,7 +27,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         /// constructor para la ejecucion de una fase
         /// </summary>
         /// <param name="phase"></param>
-        public PhaseExecution(Phases phase) 
+        public PhaseExecution(Phases phase)
         {
             Phase = phase;
         }

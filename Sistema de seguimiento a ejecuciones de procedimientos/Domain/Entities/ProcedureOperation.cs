@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
+﻿namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
 {
     /// <summary>
     /// Clase para relacionar UnitProcedure-Operations para relacion de muchos a muchos

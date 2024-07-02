@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type;
-
-namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
+﻿namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
 {
     public class UnitProcedure : Base
     {
@@ -15,7 +7,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
         /// Cola para las operaciones
         /// </summary>
         public Queue<Operations> Operations { get; set; }
-        
+
         /// <summary>
         /// Fecha y hora de inicio 
         /// </summary>
@@ -25,17 +17,17 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
         #endregion
 
         #region Constructors
-        public UnitProcedure(string ID, string Name) : base (ID, Name)
+        public UnitProcedure(string ID, string Name) : base(ID, Name)
         {
-            
+
             Operations = new Queue<Operations>();
-       
+
 
         }
 
-        public UnitProcedure() : base ("A", "A") { }
+        public UnitProcedure() : base("A", "A") { }
         #endregion
 
-        
+
     }
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type;
+﻿using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
 
 namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities
 {
@@ -27,7 +20,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         #endregion
 
         #region Constructors
-        public OperationExecution (Operations operations) 
+        public OperationExecution(Operations operations)
         {
             Operation = operations;
         }

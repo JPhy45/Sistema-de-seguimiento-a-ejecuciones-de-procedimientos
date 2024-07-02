@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common
+﻿namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common
 {
     public abstract class Entity
     {
@@ -13,11 +7,11 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common
         #endregion
 
 
-       protected Entity() 
+        protected Entity()
         {
             Id = Guid.NewGuid();
         }
-       protected Entity(Guid id) 
+        protected Entity(Guid id)
         {
             Id = id;
         }

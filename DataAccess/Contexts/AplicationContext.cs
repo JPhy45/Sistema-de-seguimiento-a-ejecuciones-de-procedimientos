@@ -1,17 +1,8 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Sqlite.Infrastructure.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
 using DataAccess.FluentConfigurations.Bases;
 using DataAccess.FluentConfigurations.Executions;
+using Microsoft.EntityFrameworkCore;
+using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
+using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
 
 namespace DataAccess.Contexts
 {
@@ -37,13 +28,13 @@ namespace DataAccess.Contexts
         /// inicializa un objeto aplicationCOntext
         /// </summary>
         /// <param name="options"></param>
-        public AplicationContext(DbContextOptions<AplicationContext> options) : base (options)
-        { 
+        public AplicationContext(DbContextOptions<AplicationContext> options) : base(options)
+        {
         }
 
         public AplicationContext(string connectionString)
             : base(GetOptions(connectionString))
-        { 
+        {
         }
         #endregion
 
