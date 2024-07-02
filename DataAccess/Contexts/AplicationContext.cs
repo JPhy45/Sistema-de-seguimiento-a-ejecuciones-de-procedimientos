@@ -12,11 +12,11 @@ namespace DataAccess.Contexts
         /// <summary>
         /// tabla para las fases, operaciones y procedimientos
         /// </summary>
-        public DbSet<Base>? Phases { get; set; }
+        public DbSet<Base> Phases { get; set; }
         /// <summary>
         /// tabla para las ejecuciones
         /// </summary>
-        public DbSet<Execution>? Executions { get; set; }
+        public DbSet<Execution> Executions { get; set; }
         #endregion
 
         #region Constructors
