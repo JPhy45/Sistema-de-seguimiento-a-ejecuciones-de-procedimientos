@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleApp1\ConsoleApp1.csproj" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\Sistema de seguimiento a ejecuciones de procedimientos\Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.csproj" />
   </ItemGroup>
 
