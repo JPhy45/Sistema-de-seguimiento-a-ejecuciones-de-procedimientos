@@ -11,6 +11,7 @@ namespace DataAccess.FluentConfigurations.Bases
         {
             builder.ToTable("Base");
             base.Configure(builder);
+            builder.Property(B => B.Description).IsRequired(false);
         }
     }
 }

@@ -11,11 +11,11 @@ namespace DataAccess.Repositories.Bases
         public BasesRepository(AplicationContext context) : base(context) { }
         public void Add(Base bases)
         {
-            _context.Phases.Add(bases);
+            _context.Base.Add(bases);
         }
         public void Delete(Base bases)
         {
-            _context.Phases.Remove(bases);
+            _context.Base.Remove(bases);
         }
         public IEnumerable<T> GetAll<T>() where T : Base
         {
@@ -27,7 +27,7 @@ namespace DataAccess.Repositories.Bases
         }
         public void Update(Base bases)
         {
-            _context.Phases.Update(bases);
+            _context.Base.Update(bases);
         }
     
     

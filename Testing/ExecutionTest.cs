@@ -29,8 +29,9 @@ namespace Testing
         {
             //Arrange
             Phases phases = new Phases(name, IC);
-            Guid Id = phases.Id;
             PhaseExecution phaseExecution = new PhaseExecution(phases);
+            Guid Id = phaseExecution.Id;
+
 
             //Execute
             _executionRepository.AddExecution(phaseExecution);
@@ -47,8 +48,8 @@ namespace Testing
         {       
             //Arrange
             Operations operations = new Operations(name, IC);
-            Guid Id = operations.Id;
             OperationExecution operationExecution = new OperationExecution(operations);
+            Guid Id = operationExecution.Id;
             //Execute
             _executionRepository.AddExecution(operationExecution);
             _unitOfWork.SaveChanges();
@@ -63,8 +64,8 @@ namespace Testing
         {
             //Arrange
             UnitProcedure unitProcedure = new UnitProcedure(name, IC);
-            Guid Id = unitProcedure.Id;
             UnitExecution unitExecution = new UnitExecution(unitProcedure);
+            Guid Id = unitExecution.Id;
             //Execute
             _executionRepository.AddExecution(unitExecution);
             _unitOfWork.SaveChanges();
@@ -90,7 +91,7 @@ namespace Testing
             Assert.IsNotNull(loadedPhaseExecution);
         }
 
-        [DataRow(1)]
+        [DataRow(0)]
         [TestMethod]
         public void Can_Get_OperationExecution_By_Id(int position)
         {
@@ -107,14 +108,14 @@ namespace Testing
             Assert.IsNotNull (loadedOperationExecution);
         }
 
-        [DataRow(2)]
+        [DataRow(0)]
         [TestMethod]
         public void Can_Get_UnitExecution_By_Id(int position)
         {
             //Arrange
             var UnitExecutions = _executionRepository.GetAllExecutions<UnitExecution>().ToList();
             Assert.IsNotNull(UnitExecutions);
-            Assert.IsTrue(position <= UnitExecutions.Count);
+            Assert.IsTrue(position < UnitExecutions.Count);
             UnitExecution unitExecutionToGet = UnitExecutions[position];
 
             //Execute
@@ -169,7 +170,7 @@ namespace Testing
             Assert.AreEqual(loadedPhaseExecution.StartTime, Refresh);
             Assert.AreEqual(loadedPhaseExecution.EndTime, RefreshEnd);
         }
-        [DataRow(1)]
+        [DataRow(0)]
         [TestMethod]
         public void Can_Update_OperationExecution(int position)
         {
@@ -193,7 +194,7 @@ namespace Testing
             Assert.AreEqual(loadedOperationExecution.StartTime, Refresh);
             Assert.AreEqual(loadedOperationExecution.EndTime, RefreshEnd);
         }
-        [DataRow(2)]
+        [DataRow(0)]
         [TestMethod]
         public void Can_Update_UnitExecution(int position)
         {

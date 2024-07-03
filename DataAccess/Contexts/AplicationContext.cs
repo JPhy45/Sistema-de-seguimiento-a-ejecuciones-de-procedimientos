@@ -12,7 +12,7 @@ namespace DataAccess.Contexts
         /// <summary>
         /// tabla para las fases, operaciones y procedimientos
         /// </summary>
-        public DbSet<Base> Phases { get; set; }
+        public DbSet<Base> Base { get; set; }
         /// <summary>
         /// tabla para las ejecuciones
         /// </summary>
