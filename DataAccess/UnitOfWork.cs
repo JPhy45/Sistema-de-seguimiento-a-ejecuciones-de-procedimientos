@@ -16,8 +16,8 @@ namespace DataAccess
         public UnitOfWork(AplicationContext context)
         {
             _context = context;
-            if(!context.Database.CanConnect())
-                context.Database.Migrate();
+            if (!context.Database.CanConnect())
+            { context.Database.Migrate(); }
         }
         public void SaveChanges()
         {

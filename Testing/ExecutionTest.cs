@@ -1,9 +1,11 @@
 using Contracts;
+using Contracts.Executions;
 using DataAccess;
 using DataAccess.Contexts;
 using DataAccess.Repositories.Executions;
 using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
 using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
+using System.CodeDom;
 using Tests.Utilities;
 
 namespace Testing
@@ -11,7 +13,7 @@ namespace Testing
     [TestClass]
     public class ExecutionTest
     {
-        private ExecutionRepository _executionRepository;
+        private IExecutionRepository _executionRepository;
         private IUnitOfWork _unitOfWork;
 
         public ExecutionTest()
@@ -26,8 +28,8 @@ namespace Testing
         public void Can_Add_PhaseExecution(string name, string IC)
         {
             //Arrange
-            Guid Id = Guid.NewGuid();
             Phases phases = new Phases(name, IC);
+            Guid Id = phases.Id;
             PhaseExecution phaseExecution = new PhaseExecution(phases);
 
             //Execute
@@ -44,8 +46,8 @@ namespace Testing
         public void Can_Add_OperationExecution(string name, string IC)
         {       
             //Arrange
-            Guid Id = Guid.NewGuid();
             Operations operations = new Operations(name, IC);
+            Guid Id = operations.Id;
             OperationExecution operationExecution = new OperationExecution(operations);
             //Execute
             _executionRepository.AddExecution(operationExecution);
@@ -60,8 +62,8 @@ namespace Testing
         public void Can_Add_UnitExecution(string name, string IC)
         {
             //Arrange
-            Guid Id = Guid.NewGuid();
             UnitProcedure unitProcedure = new UnitProcedure(name, IC);
+            Guid Id = unitProcedure.Id;
             UnitExecution unitExecution = new UnitExecution(unitProcedure);
             //Execute
             _executionRepository.AddExecution(unitExecution);
@@ -167,6 +169,114 @@ namespace Testing
             Assert.AreEqual(loadedPhaseExecution.StartTime, Refresh);
             Assert.AreEqual(loadedPhaseExecution.EndTime, RefreshEnd);
         }
-    
+        [DataRow(1)]
+        [TestMethod]
+        public void Can_Update_OperationExecution(int position)
+        {
+            //Arrange
+            var OperationExecutions = _executionRepository.GetAllExecutions<OperationExecution>().ToList();
+            Assert.IsNotNull(OperationExecutions);
+            Assert.IsTrue(position <OperationExecutions.Count);
+            OperationExecution OperationExecutionToUpdate = OperationExecutions[position];
+            DateTime Refresh = DateTime.Now;
+            DateTime RefreshEnd = DateTime.Now;
+
+            //Execute
+            OperationExecutionToUpdate.StartTime = Refresh;
+            OperationExecutionToUpdate.EndTime = RefreshEnd;
+            _executionRepository.UpdateExecution(OperationExecutionToUpdate);
+            _unitOfWork.SaveChanges();
+
+            //Assert
+            OperationExecution? loadedOperationExecution = _executionRepository.GetExecutionById<OperationExecution>(OperationExecutionToUpdate.Id);
+            Assert.IsNotNull(loadedOperationExecution);
+            Assert.AreEqual(loadedOperationExecution.StartTime, Refresh);
+            Assert.AreEqual(loadedOperationExecution.EndTime, RefreshEnd);
+        }
+        [DataRow(2)]
+        [TestMethod]
+        public void Can_Update_UnitExecution(int position)
+        {
+            //Arrange
+            var UnitExecutions = _executionRepository.GetAllExecutions<UnitExecution>().ToList();
+            Assert.IsNotNull(UnitExecutions);
+            Assert.IsTrue(position < UnitExecutions.Count);
+            UnitExecution UnitExecutionToUpdate = UnitExecutions[position];
+            DateTime Refresh = DateTime.Now;
+            DateTime RefreshEnd = DateTime.Now;
+
+            //Execute
+            UnitExecutionToUpdate.StartTime = Refresh;
+            UnitExecutionToUpdate.EndTime = RefreshEnd;
+            _executionRepository.UpdateExecution(UnitExecutionToUpdate);
+            _unitOfWork.SaveChanges();
+
+            //Assert
+            UnitExecution? loadedUnitExecution = _executionRepository.GetExecutionById<UnitExecution>(UnitExecutionToUpdate.Id);
+            Assert.IsNotNull(loadedUnitExecution);
+            Assert.AreEqual(loadedUnitExecution.StartTime, Refresh);
+            Assert.AreEqual(loadedUnitExecution.EndTime, RefreshEnd);
+
+        }
+
+        [DataRow(0)]
+        [TestMethod]
+        public void Can_Delete_PhaseExecution(int position)
+        {
+            //Arrange
+            var PhaseExecutions = _executionRepository.GetAllExecutions<PhaseExecution>().ToList();
+            Assert.IsNotNull(PhaseExecutions);
+            Assert.IsTrue(position < PhaseExecutions.Count);
+            PhaseExecution PhaseExecutionToDelete = PhaseExecutions[position];
+
+            //Execute
+            _executionRepository.DeleteExecution(PhaseExecutionToDelete);
+            _unitOfWork.SaveChanges();
+
+            //Assert
+            PhaseExecution? loadedPhaseExecution = _executionRepository.GetExecutionById<PhaseExecution>(PhaseExecutionToDelete.Id);
+            Assert.IsNull(loadedPhaseExecution);
+        }
+        [DataRow(0)]
+        [TestMethod]
+        public void Can_Delete_OperationExecution(int position)
+        {
+            //Arrange
+            var OperationExecutions = _executionRepository.GetAllExecutions<OperationExecution>().ToList();
+            Assert.IsNotNull(OperationExecutions);
+            Assert.IsTrue(position < OperationExecutions.Count);
+            OperationExecution OperationExecutionToDelete = OperationExecutions[position];
+
+            //Execute
+            _executionRepository.DeleteExecution(OperationExecutionToDelete);
+            _unitOfWork.SaveChanges();
+
+            //Assert
+            OperationExecution? loadedOperationExecution = _executionRepository.GetExecutionById<OperationExecution>(OperationExecutionToDelete.Id);
+            Assert.IsNull(loadedOperationExecution);
+        }
+
+        [DataRow(0)]
+        [TestMethod]
+        public void Can_Delete_UnitExecution(int position)
+        {
+            //Arrange
+            var UnitExecutions = _executionRepository.GetAllExecutions<UnitExecution>().ToList();
+            Assert.IsNotNull(UnitExecutions);
+            Assert.IsTrue(position < UnitExecutions.Count);
+            UnitExecution UnitExecutionToDelete = UnitExecutions[position];
+
+            //Execute
+            _executionRepository.DeleteExecution(UnitExecutionToDelete);
+            _unitOfWork.SaveChanges();
+
+            //Assert
+            UnitExecution? loadedUnitExecution = _executionRepository.GetExecutionById<UnitExecution>(UnitExecutionToDelete.Id);
+            Assert.IsNull(loadedUnitExecution);
+        }
+
+
+
+
     }
 }
