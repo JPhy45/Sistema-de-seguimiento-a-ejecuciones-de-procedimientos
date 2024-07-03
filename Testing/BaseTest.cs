@@ -90,7 +90,7 @@ namespace Testing
             Assert.IsNotNull(loadedPhase);
         }
 
-        [DataRow(1)]
+        [DataRow(0)]
         [TestMethod]
         public void Can_Get_Operation_By_Id(int position)
         {
@@ -107,7 +107,7 @@ namespace Testing
             Assert.IsNotNull(loadedOperation);
         }
 
-        [DataRow(2)]
+        [DataRow(0)]
         [TestMethod]
         public void Can_Get_UnitProcedure_By_Id(int position)
         {
@@ -168,7 +168,7 @@ namespace Testing
            
         }
 
-        [DataRow(1)]
+        [DataRow(0)]
         [TestMethod]
          
         public void Can_Update_Operation(int position)
@@ -191,7 +191,7 @@ namespace Testing
             Assert.AreEqual(loadedOperation.Name,Conection);
          }
 
-        [DataRow(2)]
+        [DataRow(0)]
         [TestMethod]
 
         public void Can_Update_UnitProcedure(int position)

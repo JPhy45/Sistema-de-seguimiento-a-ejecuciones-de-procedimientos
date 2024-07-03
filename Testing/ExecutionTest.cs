@@ -26,9 +26,9 @@ namespace Testing
         public void Can_Add_PhaseExecution(string name, string IC)
         {
             //Arrange
-            Guid Id = Guid.NewGuid();
             Phases phases = new Phases(name, IC);
             PhaseExecution phaseExecution = new PhaseExecution(phases);
+
 
             //Execute
             _executionRepository.AddExecution(phaseExecution);
