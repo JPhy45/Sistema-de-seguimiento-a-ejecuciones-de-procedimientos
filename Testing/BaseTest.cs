@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using Contracts.Bases;
 using DataAccess;
 using DataAccess.Contexts;
 using DataAccess.Repositories.Bases;
@@ -12,7 +13,7 @@ namespace Testing
     [TestClass]
     public class BasesTest
     {
-        private BasesRepository _basesRepository;
+        private IBaseRepository _basesRepository;
         private IUnitOfWork _unitOfWork;
 
         public BasesTest()
@@ -24,15 +25,15 @@ namespace Testing
         }
         [DataRow("P01", "Phase1")]
         [TestMethod]
-        public void Can_Add_PhaseExecution(string name, string IC)
+        public void Can_Add_Phase(string name, string IC)
         {
             //Arrange
             Guid Id = Guid.NewGuid();
             Phases phases = new Phases(name, IC);
-            PhaseExecution phaseExecution = new PhaseExecution(phases);
+            PhaseExecution phaseExecution = new Phases(phases);
 
             //Execute
-            _executionRepository.AddExecution(phaseExecution);
+            _basesRepository.AddPhase(phases);
             _unitOfWork.SaveChanges();
 
             //Assert
