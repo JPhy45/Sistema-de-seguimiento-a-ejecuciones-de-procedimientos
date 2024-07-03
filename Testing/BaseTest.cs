@@ -28,147 +28,252 @@ namespace Testing
         public void Can_Add_Phase(string name, string IC)
         {
             //Arrange
-            Guid Id = Guid.NewGuid();
             Phases phases = new Phases(name, IC);
-            PhaseExecution phaseExecution = new Phases(phases);
+            Guid Id = phases.Id;
 
             //Execute
-            _basesRepository.AddPhase(phases);
+            _basesRepository.Add(phases);
             _unitOfWork.SaveChanges();
 
             //Assert
-            PhaseExecution? loadedPhaseExecution = _basesRepository.GetExecutionById<PhaseExecution>(Id);
-            Assert.IsNotNull(loadedPhaseExecution);
+            Phases? loaded = _basesRepository.GetById<Phases>(Id);
+            Assert.IsNotNull(loaded);
+
         }
 
         [DataRow("O01", "Operation1")]
         [TestMethod]
-        public void Can_Add_OperationExecution(string name, string IC)
+        public void Can_Add_Operation(string name, string IC)
         {
             //Arrange
-            Guid Id = Guid.NewGuid();
+           
             Operations operations = new Operations(name, IC);
-            OperationExecution operationExecution = new OperationExecution(operations);
+            Guid Id = operations.Id;
+
             //Execute
-            _basesRepository.AddExecution(operationExecution);
+            _basesRepository.Add(operations);
             _unitOfWork.SaveChanges();
             //Assert
-            OperationExecution? LoadedOperationExecution = _basesRepository.GetExecutionById<OperationExecution>(Id);
-            Assert.IsNotNull(LoadedOperationExecution);
+            Operations? LoadedOperation = _basesRepository.GetById<Operations>(Id);
+            Assert.IsNotNull(LoadedOperation);
         }
 
         [DataRow("U01", "Unit1")]
         [TestMethod]
-        public void Can_Add_UnitExecution(string name, string IC)
+        public void Can_Add_UnitProcedure(string name, string IC)
         {
             //Arrange
-            Guid Id = Guid.NewGuid();
             UnitProcedure unitProcedure = new UnitProcedure(name, IC);
-            UnitExecution unitExecution = new UnitExecution(unitProcedure);
+            Guid Id = unitProcedure.Id;
             //Execute
-            _basesRepository.AddExecution(unitExecution);
+            _basesRepository.Add(unitProcedure);
             _unitOfWork.SaveChanges();
             //Assert
-            UnitExecution? loadedUnitExecution = _basesRepository.GetExecutionById<UnitExecution>(Id);
-            Assert.IsNotNull(loadedUnitExecution);
+            UnitProcedure? loadedUnitProcedure = _basesRepository.GetById<UnitProcedure>(Id);
+            Assert.IsNotNull(loadedUnitProcedure);
         }
 
         [DataRow(0)]
         [TestMethod]
-        public void Can_Get_PhaseExecution_By_Id(int position)
+        public void Can_Get_Phase_By_Id(int position)
         {
             //Arrange
-            var PhaseExecutions = _basesRepository.GetAllExecutions<PhaseExecution>().ToList();
-            Assert.IsNotNull(PhaseExecutions);
-            Assert.IsTrue(position < PhaseExecutions.Count);
-            PhaseExecution PhaseExecutionToGet = PhaseExecutions[position];
+            var Phases = _basesRepository.GetAll<Phases>().ToList();
+            Assert.IsNotNull(Phases);
+            Assert.IsTrue(position < Phases.Count);
+            Phases PhaseToGet = Phases[position];
 
             //Execute
-            PhaseExecution? loadedPhaseExecution = _basesRepository.GetExecutionById<PhaseExecution>(PhaseExecutionToGet.Id);
+            Phases? loadedPhase = _basesRepository.GetById<Phases>(PhaseToGet.Id);
 
             //Assert
-            Assert.IsNotNull(loadedPhaseExecution);
+            Assert.IsNotNull(loadedPhase);
         }
 
         [DataRow(1)]
         [TestMethod]
-        public void Can_Get_OperationExecution_By_Id(int position)
+        public void Can_Get_Operation_By_Id(int position)
         {
             //Arrange
-            var OperationExecutions = _basesRepository.GetAllExecutions<OperationExecution>().ToList();
-            Assert.IsNotNull(OperationExecutions);
-            Assert.IsTrue(position < OperationExecutions.Count);
-            OperationExecution OperationExecutionToGet = OperationExecutions[position];
+            var Operations = _basesRepository.GetAll<Operations>().ToList();
+            Assert.IsNotNull(Operations);
+            Assert.IsTrue(position < Operations.Count);
+            Operations OperationToGet = Operations[position];
 
             //Execute
-            OperationExecution? loadedOperationExecution = _basesRepository.GetExecutionById<OperationExecution>(OperationExecutionToGet.Id);
+            Operations? loadedOperation = _basesRepository.GetById<Operations>(OperationToGet.Id);
 
             //Assert
-            Assert.IsNotNull(loadedOperationExecution);
+            Assert.IsNotNull(loadedOperation);
         }
 
         [DataRow(2)]
         [TestMethod]
-        public void Can_Get_UnitExecution_By_Id(int position)
+        public void Can_Get_UnitProcedure_By_Id(int position)
         {
             //Arrange
-            var UnitExecutions = _basesRepository.GetAllExecutions<UnitExecution>().ToList();
-            Assert.IsNotNull(UnitExecutions);
-            Assert.IsTrue(position <= UnitExecutions.Count);
-            UnitExecution unitExecutionToGet = UnitExecutions[position];
+            var UnitProcedure = _basesRepository.GetAll<UnitProcedure>().ToList();
+            Assert.IsNotNull(UnitProcedure);
+            Assert.IsTrue(position < UnitProcedure.Count);
+            UnitProcedure UnitProcedureToGet = UnitProcedure[position];
 
             //Execute
-            UnitExecution? loadedUnitExecution = _basesRepository.GetExecutionById<UnitExecution>(unitExecutionToGet.Id);
+            UnitProcedure? loadedUnitProcedure = _basesRepository.GetById<UnitProcedure>(UnitProcedureToGet.Id);
 
             //Assert
-            Assert.IsNotNull(loadedUnitExecution);
+            Assert.IsNotNull(loadedUnitProcedure);
         }
 
         [TestMethod]
-        public void Cannot_Get_PhaseExecution_By_Invalid_Id()
+        public void Cannot_Get_Phase_By_Invalid_Id()
         {
-            PhaseExecution? loadedPhaseExecution = _basesRepository.GetExecutionById<PhaseExecution>(Guid.Empty);
-            Assert.IsNull(loadedPhaseExecution);
+            Phases? loadedPhase = _basesRepository.GetById<Phases>(Guid.Empty);
+            Assert.IsNull(loadedPhase);
         }
 
         [TestMethod]
-        public void Cannot_Get_OperationExecution_By_Invalid_Id()
+        public void Cannot_Get_Operation_By_Invalid_Id()
         {
-            OperationExecution? loadedOperationExecution =_basesRepository.GetExecutionById<OperationExecution>(Guid.Empty);
-            Assert.IsNull(loadedOperationExecution);
+            Operations? loadedOperation =_basesRepository.GetById<Operations>(Guid.Empty);
+            Assert.IsNull(loadedOperation);
         }
 
         [TestMethod]
-        public void Cannot_Get_UnitExecution_By_Invalid_Id()
+        public void Cannot_Get_UnitProcedure_By_Invalid_Id()
         {
-            UnitExecution? loadedUnitExecution = _basesRepository.GetExecutionById<UnitExecution>(Guid.Empty);
-            Assert.IsNull(loadedUnitExecution);
+            UnitProcedure? loadedUnitProcedure = _basesRepository.GetById<UnitProcedure>(Guid.Empty);
+            Assert.IsNull(loadedUnitProcedure);
         }
 
         [DataRow(0)]
         [TestMethod]
-        public void Can_Update_PhaseExecution(int position)
+        public void Can_Update_Phase(int position)
         {
             //Arrange
-            var PhaseExecutions = _basesRepository.GetAllExecutions<PhaseExecution>().ToList();
-            Assert.IsNotNull(PhaseExecutions);
-            Assert.IsTrue(position < PhaseExecutions.Count);
-            PhaseExecution PhaseExecutionToUpdate = PhaseExecutions[position];
-            DateTime Refresh = DateTime.Now;
-            DateTime RefreshEnd = DateTime.Now;
+            var Phases = _basesRepository.GetAll<Phases>().ToList();
+            Assert.IsNotNull(Phases);
+            Assert.IsTrue(position < Phases.Count);
+            Phases PhaseToUpdate = Phases[position];
+            string Conection = new string("A" );
 
             //Execute
-            PhaseExecutionToUpdate.StartTime = Refresh;
-            PhaseExecutionToUpdate.EndTime = RefreshEnd;
-            _basesRepository.UpdateExecution(PhaseExecutionToUpdate);
+            PhaseToUpdate.Name = Conection;
+            _basesRepository.Update(PhaseToUpdate);
             _unitOfWork.SaveChanges();
 
             //Assert
-            PhaseExecution? loadedPhaseExecution = _basesRepository.GetExecutionById<PhaseExecution>(PhaseExecutionToUpdate.Id);
-            Assert.IsNotNull(loadedPhaseExecution);
-            Assert.AreEqual(loadedPhaseExecution.StartTime, Refresh);
-            Assert.AreEqual(loadedPhaseExecution.EndTime, RefreshEnd);
+            Phases? loadedPhase = _basesRepository.GetById<Phases>(PhaseToUpdate.Id);
+            Assert.IsNotNull(loadedPhase);
+            Assert.AreEqual(loadedPhase.Name,Conection );
+           
         }
+
+        [DataRow(1)]
+        [TestMethod]
+         
+        public void Can_Update_Operation(int position)
+        {
+            //Arrange
+            var Operations = _basesRepository.GetAll<Operations>().ToList();
+            Assert.IsNotNull(Operations);
+            Assert.IsTrue(position < Operations.Count);
+            Operations OperationToUpdate=Operations[position];
+            string Conection = new string("A"); 
+
+            //Execute
+            OperationToUpdate.Name = Conection;
+            _basesRepository.Update(OperationToUpdate);
+            _unitOfWork.SaveChanges();
+
+            //Assert
+            Operations? loadedOperation=_basesRepository.GetById<Operations>(OperationToUpdate.Id);
+            Assert.IsNotNull(loadedOperation);
+            Assert.AreEqual(loadedOperation.Name,Conection);
+         }
+
+        [DataRow(2)]
+        [TestMethod]
+
+        public void Can_Update_UnitProcedure(int position)
+        {
+            //Arrange
+            var UnitProcedure = _basesRepository.GetAll<UnitProcedure>().ToList();
+            Assert.IsNotNull(UnitProcedure);
+            Assert.IsTrue(position < UnitProcedure.Count);
+            UnitProcedure UnitProcedureToUpdate = UnitProcedure[position];
+            string Conection = new string("A");
+
+            //Execute
+            UnitProcedureToUpdate.Name = Conection;
+            _basesRepository.Update(UnitProcedureToUpdate);
+
+            //Assert
+            UnitProcedure? loadedUnitProcedure = _basesRepository.GetById<UnitProcedure>(UnitProcedureToUpdate.Id);
+            Assert.IsNotNull(loadedUnitProcedure);
+            Assert.AreEqual(loadedUnitProcedure.Name,Conection);
+        }
+
+        [DataRow(0)]
+        [TestMethod]
+
+        public void Can_Delete_Phase(int position)
+        {
+            //Arrange
+            var Phases = _basesRepository.GetAll<Phases>().ToList();
+            Assert.IsNotNull(Phases);
+            Assert.IsTrue(position < Phases.Count);
+            Phases PhaseToDelete = Phases[position];
+
+            //Execute
+            _basesRepository.Delete(PhaseToDelete);
+            _unitOfWork.SaveChanges();
+
+            //Assert
+            Phases? loadedPhase = _basesRepository.GetById<Phases>(PhaseToDelete.Id);
+            Assert.IsNull(loadedPhase);
+            
+        }
+
+        [DataRow(0)]
+        [TestMethod]
+        
+        public void Can_Delete_Operation(int position)
+        {
+            //Arrange
+            var Operations =_basesRepository.GetAll<Operations>().ToList();
+            Assert.IsNotNull(Operations);
+            Assert.IsTrue(position < Operations.Count);
+            Operations OperationToDelete = Operations[position];
+
+            //Execute
+            _basesRepository.Delete(OperationToDelete);
+            _unitOfWork.SaveChanges();
+
+            //Assert
+            Operations? loadedOperations=_basesRepository.GetById<Operations>(OperationToDelete.Id);
+            Assert.IsNull(loadedOperations);
+        }
+
+        [DataRow(0)]
+        [TestMethod]
+
+        public void Can_Delete_unitProcedure(int position)
+        {
+            //Arrange
+            var UnitProcedure = _basesRepository.GetAll<UnitProcedure>().ToList();
+            Assert.IsNotNull(UnitProcedure);
+            Assert.IsTrue(position < UnitProcedure.Count);
+            UnitProcedure UnitProcedureToDelete = UnitProcedure[position];
+
+            //Execute
+            _basesRepository.Delete(UnitProcedureToDelete);
+            _unitOfWork.SaveChanges();
+
+            //Assert
+            UnitProcedure? loadedUnitProcedure = _basesRepository.GetById<UnitProcedure>(UnitProcedureToDelete.Id);
+            Assert.IsNull(loadedUnitProcedure);
+        }
+
 
     }
 }
