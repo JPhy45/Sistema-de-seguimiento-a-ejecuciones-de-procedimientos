@@ -11,9 +11,6 @@ namespace DataAccess.FluentConfigurations.Executions
         {
             builder.ToTable("Execution");
             base.Configure(builder);
-            builder.Ignore(x => x.EndTime);
-            builder.Ignore(x => x.StartTime);
-            builder.Ignore(x => x.State);
         }
     }
 }

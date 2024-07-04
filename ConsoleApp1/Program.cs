@@ -66,5 +66,7 @@ internal class Program
         Phases? deletedPhase = BaseRepository.GetById<Phases>(phase1.Id);
         if (deletedPhase == null)
             Console.WriteLine($"Phase {phase1.Name} eliminada Correctamente");
+
+
     }
 }

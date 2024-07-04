@@ -273,7 +273,5 @@ namespace Testing
             UnitProcedure? loadedUnitProcedure = _basesRepository.GetById<UnitProcedure>(UnitProcedureToDelete.Id);
             Assert.IsNull(loadedUnitProcedure);
         }
-
-
     }
 }
