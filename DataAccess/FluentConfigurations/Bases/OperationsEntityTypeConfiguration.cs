@@ -10,6 +10,7 @@ namespace DataAccess.FluentConfigurations.Bases
         {
             builder.ToTable("Operaciones");
             builder.HasBaseType(typeof(Base));
+            builder.HasMany(O => O.phases);
 
         }
     }

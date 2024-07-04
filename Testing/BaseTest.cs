@@ -273,5 +273,26 @@ namespace Testing
             UnitProcedure? loadedUnitProcedure = _basesRepository.GetById<UnitProcedure>(UnitProcedureToDelete.Id);
             Assert.IsNull(loadedUnitProcedure);
         }
+        [DataRow(0)]
+        [TestMethod]
+        public void Can_Get_Phase_By_Operation(int position)
+        {
+            //Arrange
+            Phases phases = new Phases("P1","Phase1");
+            Operations operations = new Operations("O1", "Operation1");
+
+            operations.phases.Add(phases);
+        
+            //Execute
+            _basesRepository.Add(phases);
+            _basesRepository.Add(operations);
+            _unitOfWork.SaveChanges();
+
+            Operations? loadedOperation = _basesRepository.GetById<Operations>(operations.Id);
+            Assert.IsNotNull(loadedOperation);
+            Assert.IsTrue(position < loadedOperation.phases.Count);
+            Phases loadedPhase = loadedOperation.phases.First();
+            Assert.AreEqual(loadedPhase,phases);
+        }
     }
 }

@@ -6,7 +6,7 @@
         /// <summary>
         /// secuencia de fases para una operacion
         /// </summary>
-        public Queue<Phases> phases { get; set; }
+        public List<Phases> phases { get; set; }
 
 
         /// <summary>
@@ -22,11 +22,11 @@
         public Operations(string IC, string Name) : base(IC, Name)
         {
 
-            phases = new Queue<Phases>();
+            phases = new List<Phases>();
         }
         public Operations() : base("A", "A")
         {
-            this.phases = new Queue<Phases>();
+            this.phases = new List<Phases>();
 
         }
         #endregion
