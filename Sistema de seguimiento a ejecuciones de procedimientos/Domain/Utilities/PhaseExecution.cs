@@ -27,11 +27,16 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         /// constructor para la ejecucion de una fase
         /// </summary>
         /// <param name="phase"></param>
-        public PhaseExecution(Phases phase)
+        public PhaseExecution(Phases phase) : base()
         {
             Phase = phase;
+            PhaseId = phase.Id;
         }
-        public PhaseExecution() { }
+        public PhaseExecution() : base()
+        {
+            Phase = new Phases();
+            PhaseId = Phase.Id;
+        }
         #endregion
     }
 }

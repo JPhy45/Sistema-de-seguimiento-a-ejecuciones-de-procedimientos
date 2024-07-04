@@ -20,11 +20,16 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilitie
         #endregion
 
         #region Constructors
-        public OperationExecution(Operations operations)
+        public OperationExecution(Operations operations) : base()
         {
             Operation = operations;
+            OperationId = operations.Id;
         }
-        public OperationExecution() { }
+        public OperationExecution() : base()
+        {
+            Operation = new Operations();
+            OperationId = Operation.Id;
+        }
         #endregion
     }
 }

@@ -12,7 +12,7 @@ using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
 
 internal class Program
 {
-    static async Task Main(string[] args)
+    static void Main(string[] args)
     {
         if (File.Exists("Data.sqlite"))
             File.Delete("Data.sqlite");
@@ -23,14 +23,14 @@ internal class Program
             context.Database.Migrate();
 
         IUnitOfWork UnitOfWork = new UnitOfWork(context);
-        IExecutionRepository ExecutionRepository = new ExecutionRepository (context);
+        IExecutionRepository ExecutionRepository = new ExecutionRepository(context);
         IBaseRepository BaseRepository = new BasesRepository(context);
 
         Phases phase1 = new Phases("P1", "Phase 1");
         Phases phase2 = new Phases("P2", "Phase 2");
         Operations Operation1 = new Operations("O1", "Operation 1");
         Operations Operation2 = new Operations("O2", "Operation 2");
-        UnitProcedure Unit1 = new UnitProcedure("U1","Unit 1");
+        UnitProcedure Unit1 = new UnitProcedure("U1", "Unit 1");
         UnitProcedure Unit2 = new UnitProcedure("U2", "Unit 2");
 
         PhaseExecution phaseExecution = new PhaseExecution(phase2);
@@ -55,14 +55,14 @@ internal class Program
             Console.WriteLine("La entidad Phase de la Ejecucion de Fase 1 no se encuentra en BD");
         else
             Console.WriteLine($"Se esta ejecutando la fase {phasetoload.Name}");
-        phase1.Description = "TODELETE";
+        phase1.Name = "TODELETE";
 
         BaseRepository.Update(phase1);
         UnitOfWork.SaveChanges();
 
         BaseRepository.Delete(phase1);
         UnitOfWork.SaveChanges();
-        
+
         Phases? deletedPhase = BaseRepository.GetById<Phases>(phase1.Id);
         if (deletedPhase == null)
             Console.WriteLine($"Phase {phase1.Name} eliminada Correctamente");
