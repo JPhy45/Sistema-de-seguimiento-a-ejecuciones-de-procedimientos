@@ -11,7 +11,7 @@
         /// <summary>
         /// Lista usada para la relacion de muchos a muchos
         /// </summary>
-        public List<UnitProcedure> UnitProcedures { get; set; }
+        public List<UnitProcedure>? UnitProcedures { get; set; }
 
         /// <summary>
         /// codigo de la unidad en la que se encuentra

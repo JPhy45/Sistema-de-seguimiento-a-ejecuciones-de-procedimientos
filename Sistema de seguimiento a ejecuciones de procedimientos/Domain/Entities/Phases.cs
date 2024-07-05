@@ -5,7 +5,7 @@
         /// <summary>
         /// Lista de operaciones para la relacion de muchos a muchos
         /// </summary>
-        public List<Operations> operations;
+        public List<Operations>? operations;
 
         #region Constructors
         /// <summary>

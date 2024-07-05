@@ -23,7 +23,10 @@
 
         }
 
-        public UnitProcedure() : base("A", "A") { }
+        public UnitProcedure() : base("A", "A") 
+        {
+            Operations = new List<Operations>();
+        }
         #endregion
 
 
