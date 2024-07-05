@@ -1,7 +1,7 @@
 ﻿using DataAccess.FluentConfigurations.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
+using Domain.Domain.Utilities;
 
 namespace DataAccess.FluentConfigurations.Executions
 {

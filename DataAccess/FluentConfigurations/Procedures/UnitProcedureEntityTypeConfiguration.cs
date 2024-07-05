@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
+using Domain.Domain.Entities;
 
-namespace DataAccess.FluentConfigurations.Bases
+namespace DataAccess.FluentConfigurations.Procedures
 {
     public class UnitProcedureEntityTypeConfiguration : IEntityTypeConfiguration<UnitProcedure>
     {
         public void Configure(EntityTypeBuilder<UnitProcedure> builder)
         {
             builder.ToTable("Procedimientos");
-            builder.HasBaseType(typeof(Base));
+            builder.HasBaseType(typeof(ProcedureControl));
+            builder.HasMany(UP => UP.Operations).WithMany(O => O.UnitProcedures);
         }
     }
 }

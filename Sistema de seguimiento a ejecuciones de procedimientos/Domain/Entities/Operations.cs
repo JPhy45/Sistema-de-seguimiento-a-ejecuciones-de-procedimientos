@@ -1,13 +1,17 @@
-﻿namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
+﻿namespace Domain.Domain.Entities
 {
-    public class Operations : Base
+    public class Operations : ProcedureControl
     {
         #region Properties
         /// <summary>
         /// secuencia de fases para una operacion
         /// </summary>
-        public List<Phases> phases { get; set; }
+        public List<Phases> Phases { get; set; }
 
+        /// <summary>
+        /// Lista usada para la relacion de muchos a muchos
+        /// </summary>
+        public List<UnitProcedure> UnitProcedures { get; set; }
 
         /// <summary>
         /// codigo de la unidad en la que se encuentra
@@ -22,18 +26,16 @@
         public Operations(string IC, string Name) : base(IC, Name)
         {
 
-            phases = new List<Phases>();
+            Phases = new List<Phases>();
         }
         public Operations() : base("A", "A")
         {
-            this.phases = new List<Phases>();
+            this.Phases = new List<Phases>();
 
         }
         #endregion
 
         #region Methods
-        public ICollection<OperationPhase> OperationPhase { get; set; } = new List<OperationPhase>();
-        public ICollection<ProcedureOperation> ProcedureOperation { get; set; } = new List<ProcedureOperation>();
 
         #endregion
 

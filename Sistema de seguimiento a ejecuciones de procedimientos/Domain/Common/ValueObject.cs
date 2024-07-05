@@ -1,4 +1,4 @@
-﻿namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common
+﻿namespace Domain.Domain.Common
 {
     public abstract class ValueObject
     {

@@ -3,8 +3,8 @@ using Contracts.Executions;
 using DataAccess;
 using DataAccess.Contexts;
 using DataAccess.Repositories.Executions;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
+using Domain.Domain.Entities;
+using Domain.Domain.Utilities;
 using System.CodeDom;
 using Tests.Utilities;
 

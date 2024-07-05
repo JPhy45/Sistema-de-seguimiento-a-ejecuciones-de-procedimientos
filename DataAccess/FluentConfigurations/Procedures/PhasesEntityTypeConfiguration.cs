@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
+using Domain.Domain.Entities;
 
-namespace DataAccess.FluentConfigurations.Bases
+namespace DataAccess.FluentConfigurations.Procedures
 {
     public class PhasesEntityTypeConfiguration : IEntityTypeConfiguration<Phases>
     {
         public void Configure(EntityTypeBuilder<Phases> builder)
         {
             builder.ToTable("Phases");
-            builder.HasBaseType(typeof(Base));
+            builder.HasBaseType(typeof(ProcedureControl));
         }
     }
 }

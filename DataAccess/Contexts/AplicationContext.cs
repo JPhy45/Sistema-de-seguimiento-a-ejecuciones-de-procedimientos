@@ -1,8 +1,8 @@
-using DataAccess.FluentConfigurations.Bases;
+using DataAccess.FluentConfigurations.Procedures;
 using DataAccess.FluentConfigurations.Executions;
 using Microsoft.EntityFrameworkCore;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
+using Domain.Domain.Entities;
+using Domain.Domain.Utilities;
 
 namespace DataAccess.Contexts
 {
@@ -12,7 +12,7 @@ namespace DataAccess.Contexts
         /// <summary>
         /// tabla para las fases, operaciones y procedimientos
         /// </summary>
-        public DbSet<Base> Base { get; set; }
+        public DbSet<ProcedureControl> Base { get; set; }
         /// <summary>
         /// tabla para las ejecuciones
         /// </summary>
@@ -46,34 +46,7 @@ namespace DataAccess.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<OperationPhase>().
-                HasKey(OP => new { OP.OperationId, OP.PhaseId });
-
-            modelBuilder.Entity<OperationPhase>().
-                HasOne(OP => OP.Operation).
-                WithMany(O => O.OperationPhase).
-                HasForeignKey(OP => OP.PhaseId);
-
-            modelBuilder.Entity<OperationPhase>().
-                HasOne(OP => OP.Phase).
-                WithMany(P => P.OperationsPhase).
-                HasForeignKey(OP => OP.PhaseId);
-
-            modelBuilder.Entity<ProcedureOperation>().
-                HasKey(PO => new { PO.ProcedureId, PO.OperationId });
-
-            modelBuilder.Entity<ProcedureOperation>().
-                HasOne(PO => PO.UnitProcedure).
-                WithMany(P => P.ProcedureOperation).
-                HasForeignKey(PO => PO.ProcedureId);
-
-            modelBuilder.Entity<ProcedureOperation>().
-                HasOne(PO => PO.Operation).
-                WithMany(O => O.ProcedureOperation).
-                HasForeignKey(PO => PO.OperationId);
-
-
-            modelBuilder.ApplyConfiguration(new BaseEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProcedureControlEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new OperationsEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PhasesEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UnitProcedureEntityTypeConfiguration());

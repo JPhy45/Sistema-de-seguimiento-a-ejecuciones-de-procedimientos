@@ -1,7 +1,7 @@
-﻿using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
+﻿using Domain.Domain.Entities;
 
 
-namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities
+namespace Domain.Domain.Utilities
 {
     public class UnitExecution : Execution
     {

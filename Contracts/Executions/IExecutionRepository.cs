@@ -1,4 +1,4 @@
-﻿using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
+﻿using Domain.Domain.Utilities;
 
 namespace Contracts.Executions
 {

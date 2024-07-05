@@ -1,8 +1,11 @@
-﻿namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
+﻿namespace Domain.Domain.Entities
 {
-    public class Phases : Base
+    public class Phases : ProcedureControl
     {
-        public virtual ICollection<OperationPhase> OperationsPhase { get; set; } = new List<OperationPhase>();
+        /// <summary>
+        /// Lista de operaciones para la relacion de muchos a muchos
+        /// </summary>
+        public List<Operations> operations;
 
         #region Constructors
         /// <summary>

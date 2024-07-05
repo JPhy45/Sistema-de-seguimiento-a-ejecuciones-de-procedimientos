@@ -1,7 +1,7 @@
-﻿using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type;
+﻿using Domain.Domain.Common;
+using Domain.Domain.Type;
 
-namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities
+namespace Domain.Domain.Utilities
 {
     public abstract class Execution : Entity
     {

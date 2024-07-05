@@ -1,26 +1,24 @@
-﻿namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
+﻿namespace Domain.Domain.Entities
 {
-    public class UnitProcedure : Base
+    public class UnitProcedure : ProcedureControl
     {
         #region Properties
         /// <summary>
         /// Cola para las operaciones
         /// </summary>
-        public Queue<Operations> Operations { get; set; }
+        public List<Operations> Operations { get; set; }
 
         /// <summary>
         /// Fecha y hora de inicio 
         /// </summary>
         public string? UnitCode { get; set; }
-        public ICollection<ProcedureOperation> ProcedureOperation { get; set; } = new List<ProcedureOperation>();
-
         #endregion
 
         #region Constructors
         public UnitProcedure(string ID, string Name) : base(ID, Name)
         {
 
-            Operations = new Queue<Operations>();
+            Operations = new List<Operations>();
 
 
         }

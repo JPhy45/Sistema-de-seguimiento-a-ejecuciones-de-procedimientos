@@ -1,4 +1,4 @@
-﻿namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Type
+﻿namespace Domain.Domain.Type
 {
     /// <summary>
     /// clase enum para definir el estado de los procedimientos

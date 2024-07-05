@@ -10,20 +10,6 @@ namespace DataAccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Base",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    IdentificationCode = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Base", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Execution",
                 columns: table => new
                 {
@@ -38,6 +24,55 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ProcedureControl",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    IdentificationCode = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProcedureControl", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Operaciones",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UnitCode = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Operaciones", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Operaciones_ProcedureControl_Id",
+                        column: x => x.Id,
+                        principalTable: "ProcedureControl",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Phases",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Phases", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Phases_ProcedureControl_Id",
+                        column: x => x.Id,
+                        principalTable: "ProcedureControl",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Procedimientos",
                 columns: table => new
                 {
@@ -48,57 +83,9 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_Procedimientos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Procedimientos_Base_Id",
+                        name: "FK_Procedimientos_ProcedureControl_Id",
                         column: x => x.Id,
-                        principalTable: "Base",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Operaciones",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    UnitCode = table.Column<string>(type: "TEXT", nullable: true),
-                    UnitProcedureId = table.Column<Guid>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Operaciones", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Operaciones_Base_Id",
-                        column: x => x.Id,
-                        principalTable: "Base",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Operaciones_Procedimientos_UnitProcedureId",
-                        column: x => x.UnitProcedureId,
-                        principalTable: "Procedimientos",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UnitExecution",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    UnitId = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UnitExecution", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UnitExecution_Execution_Id",
-                        column: x => x.Id,
-                        principalTable: "Execution",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UnitExecution_Procedimientos_UnitId",
-                        column: x => x.UnitId,
-                        principalTable: "Procedimientos",
+                        principalTable: "ProcedureControl",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -129,71 +116,24 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Phases",
+                name: "OperationsPhases",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    OperationsId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    PhasesId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    operationsId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Phases", x => x.Id);
+                    table.PrimaryKey("PK_OperationsPhases", x => new { x.PhasesId, x.operationsId });
                     table.ForeignKey(
-                        name: "FK_Phases_Base_Id",
-                        column: x => x.Id,
-                        principalTable: "Base",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Phases_Operaciones_OperationsId",
-                        column: x => x.OperationsId,
-                        principalTable: "Operaciones",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProcedureOperation",
-                columns: table => new
-                {
-                    OperationId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ProcedureId = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProcedureOperation", x => new { x.ProcedureId, x.OperationId });
-                    table.ForeignKey(
-                        name: "FK_ProcedureOperation_Operaciones_OperationId",
-                        column: x => x.OperationId,
+                        name: "FK_OperationsPhases_Operaciones_operationsId",
+                        column: x => x.operationsId,
                         principalTable: "Operaciones",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProcedureOperation_Procedimientos_ProcedureId",
-                        column: x => x.ProcedureId,
-                        principalTable: "Procedimientos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OperationPhase",
-                columns: table => new
-                {
-                    PhaseId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    OperationId = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OperationPhase", x => new { x.OperationId, x.PhaseId });
-                    table.ForeignKey(
-                        name: "FK_OperationPhase_Operaciones_PhaseId",
-                        column: x => x.PhaseId,
-                        principalTable: "Operaciones",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OperationPhase_Phases_PhaseId",
-                        column: x => x.PhaseId,
+                        name: "FK_OperationsPhases_Phases_PhasesId",
+                        column: x => x.PhasesId,
                         principalTable: "Phases",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -224,10 +164,53 @@ namespace DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Operaciones_UnitProcedureId",
-                table: "Operaciones",
-                column: "UnitProcedureId");
+            migrationBuilder.CreateTable(
+                name: "OperationsUnitProcedure",
+                columns: table => new
+                {
+                    OperationsId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UnitProceduresId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OperationsUnitProcedure", x => new { x.OperationsId, x.UnitProceduresId });
+                    table.ForeignKey(
+                        name: "FK_OperationsUnitProcedure_Operaciones_OperationsId",
+                        column: x => x.OperationsId,
+                        principalTable: "Operaciones",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OperationsUnitProcedure_Procedimientos_UnitProceduresId",
+                        column: x => x.UnitProceduresId,
+                        principalTable: "Procedimientos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UnitExecution",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UnitId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UnitExecution", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UnitExecution_Execution_Id",
+                        column: x => x.Id,
+                        principalTable: "Execution",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UnitExecution_Procedimientos_UnitId",
+                        column: x => x.UnitId,
+                        principalTable: "Procedimientos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OperationExecution_OperationId",
@@ -235,24 +218,19 @@ namespace DataAccess.Migrations
                 column: "OperationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OperationPhase_PhaseId",
-                table: "OperationPhase",
-                column: "PhaseId");
+                name: "IX_OperationsPhases_operationsId",
+                table: "OperationsPhases",
+                column: "operationsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OperationsUnitProcedure_UnitProceduresId",
+                table: "OperationsUnitProcedure",
+                column: "UnitProceduresId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PhaseExecution_PhaseId",
                 table: "PhaseExecution",
                 column: "PhaseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Phases_OperationsId",
-                table: "Phases",
-                column: "OperationsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProcedureOperation_OperationId",
-                table: "ProcedureOperation",
-                column: "OperationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UnitExecution_UnitId",
@@ -266,16 +244,19 @@ namespace DataAccess.Migrations
                 name: "OperationExecution");
 
             migrationBuilder.DropTable(
-                name: "OperationPhase");
+                name: "OperationsPhases");
+
+            migrationBuilder.DropTable(
+                name: "OperationsUnitProcedure");
 
             migrationBuilder.DropTable(
                 name: "PhaseExecution");
 
             migrationBuilder.DropTable(
-                name: "ProcedureOperation");
+                name: "UnitExecution");
 
             migrationBuilder.DropTable(
-                name: "UnitExecution");
+                name: "Operaciones");
 
             migrationBuilder.DropTable(
                 name: "Phases");
@@ -284,13 +265,10 @@ namespace DataAccess.Migrations
                 name: "Execution");
 
             migrationBuilder.DropTable(
-                name: "Operaciones");
-
-            migrationBuilder.DropTable(
                 name: "Procedimientos");
 
             migrationBuilder.DropTable(
-                name: "Base");
+                name: "ProcedureControl");
         }
     }
 }

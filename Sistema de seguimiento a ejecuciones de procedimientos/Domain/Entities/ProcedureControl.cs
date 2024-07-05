@@ -1,8 +1,8 @@
-﻿using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Common;
+﻿using Domain.Domain.Common;
 
-namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
+namespace Domain.Domain.Entities
 {
-    public abstract class Base : Entity
+    public abstract class ProcedureControl : Entity
     {
         #region Properties
 
@@ -21,7 +21,7 @@ namespace Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities
         #endregion
 
         #region Constructors
-        public Base(string IC, string Name)
+        public ProcedureControl(string IC, string Name)
         {
             this.IdentificationCode = IC;
             this.Name = Name;

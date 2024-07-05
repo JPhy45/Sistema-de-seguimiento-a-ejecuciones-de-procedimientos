@@ -1,14 +1,14 @@
 ﻿using Contracts;
-using Contracts.Bases;
+using Contracts.Procedures;
 using Contracts.Executions;
 using DataAccess.Contexts;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
+using Domain.Domain.Entities;
 using Tests.Utilities;
 using DataAccess.Repositories.Executions;
-using DataAccess.Repositories.Bases;
-using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Utilities;
+using DataAccess.Repositories.Procedures;
+using Domain.Domain.Utilities;
 
 internal class Program
 {
@@ -24,7 +24,7 @@ internal class Program
 
         IUnitOfWork UnitOfWork = new UnitOfWork(context);
         IExecutionRepository ExecutionRepository = new ExecutionRepository (context);
-        IBaseRepository BaseRepository = new BasesRepository(context);
+        IProcedureControlRepository BaseRepository = new ProcedureControlRepository(context);
 
         Phases phase1 = new Phases("P1", "Phase 1");
         Phases phase2 = new Phases("P2", "Phase 2");

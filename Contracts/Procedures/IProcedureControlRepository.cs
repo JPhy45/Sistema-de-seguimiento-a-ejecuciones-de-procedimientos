@@ -1,36 +1,36 @@
-﻿using Sistema_de_seguimiento_a_ejecuciones_de_procedimientos.Domain.Entities;
+﻿using Domain.Domain.Entities;
 
-namespace Contracts.Bases
+namespace Contracts.Procedures
 {
-    public interface IBaseRepository
+    public interface IProcedureControlRepository
     {
         /// <summary>
         /// agrega un elemento al soporte de datos
         /// </summary>
         /// <param name="bases"></param>
-        void Add(Base bases);
+        void Add(ProcedureControl bases);
         /// <summary>
         /// Obtiene un elemento del soporte de datos por el Id
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="id"></param>
         /// <returns></returns>
-        T? GetById<T>(Guid id) where T : Base;
+        T? GetById<T>(Guid id) where T : ProcedureControl;
         /// <summary>
         /// obtiene todos los valores del soporte de datos
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        IEnumerable<T> GetAll<T>() where T : Base;
+        IEnumerable<T> GetAll<T>() where T : ProcedureControl;
         /// <summary>
         /// Actualiza un elemento en el soporte de datos
         /// </summary>
         /// <param name="Bases"></param>
-        void Update(Base Bases);
+        void Update(ProcedureControl Bases);
         /// <summary>
         /// Elimina un elemento del soporte de datos
         /// </summary>
         /// <param name="Bases"></param>
-        void Delete(Base Bases);
+        void Delete(ProcedureControl Bases);
     }
 }
