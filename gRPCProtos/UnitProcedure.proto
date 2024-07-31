@@ -1,0 +1,43 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "gRPCProtos";
+
+package GrpcProtos;
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "Common.proto";
+import "Operations.proto";
+
+service UnitProcedure{
+	rpc CreateUnitProcedure (CreateUnitProcedureRequest) returns (UnitProcedureDTO);
+	rpc GetUnitProcedeure (GetRequest) returns (NullableUnitProcedureDTO);
+	rpc GetAllUnitProcedures (google.protobuf.Empty) returns (UnitProcedure);
+    rpc UpdateUnitProcedure(UnitProcedureDTO) returns (google.protobuf.Empty);
+	rpc DeleteUnitProcedure(DeleteRequest) returns (google.protobuf.Empty);
+    } 
+
+	message UnitProcedureDTO{
+		string id=1;
+		string IdentificationCode=2;
+		string Name=3;
+		string Description=4;
+		repeated OperationDTO operations=5;
+	}
+
+	message NullableUnitProcedureDTO{
+	oneof kind{
+		google.protobuf.NullValue null = 1;
+		UnitProcedureDTO UnitProcedure = 2;
+	}
+	}
+
+	message UnitProcedure{
+	repeated UnitProcedure items = 1;
+}
+
+message CreateUnitProcedureRequest{
+  string IdentificationCode=1;
+  string Name=2;
+}

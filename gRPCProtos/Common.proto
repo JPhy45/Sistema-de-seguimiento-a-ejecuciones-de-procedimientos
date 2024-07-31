@@ -1,0 +1,20 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "gRPCProtos";
+
+package GrpcProtos;
+
+message GetRequest{
+	string id = 1;
+}
+
+message DeleteRequest{
+	string id = 1;
+}
+
+enum ExecutionState{
+	    iddle=0;
+        Running=1;
+        Paused=2;
+        Completed=3;
+}
