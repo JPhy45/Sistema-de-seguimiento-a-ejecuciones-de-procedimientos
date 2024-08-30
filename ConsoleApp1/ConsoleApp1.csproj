@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\GrpcService\GrpcService.csproj" />
     <ProjectReference Include="..\Sistema de seguimiento a ejecuciones de procedimientos\Domain.csproj" />
     <ProjectReference Include="..\Testing\Testing.csproj" />
   </ItemGroup>

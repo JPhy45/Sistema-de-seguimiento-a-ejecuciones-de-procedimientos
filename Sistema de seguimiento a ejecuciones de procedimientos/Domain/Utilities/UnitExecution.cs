@@ -22,7 +22,7 @@ namespace Domain.Domain.Utilities
         {
 
             this.Unit = unit;
-            UnitId = unit.Id;  
+            UnitId = unit.Id;
         }
         public UnitExecution() : base()
         {

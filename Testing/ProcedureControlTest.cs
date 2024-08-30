@@ -4,7 +4,6 @@ using DataAccess;
 using DataAccess.Contexts;
 using DataAccess.Repositories.Procedures;
 using Domain.Domain.Entities;
-using Domain.Domain.Utilities;
 using Tests.Utilities;
 
 
@@ -23,7 +22,7 @@ namespace Testing
             _unitOfWork = new UnitOfWork(Context);
 
         }
-        [DataRow("P02","Phase2")]
+        [DataRow("P02", "Phase2")]
         [DataRow("P01", "Phase1")]
         [TestMethod]
         public void Can_Add_Phase(string name, string IC)
@@ -41,7 +40,7 @@ namespace Testing
             Assert.IsNotNull(loaded);
 
         }
-        [DataRow("Operation2","Operation2")]
+        [DataRow("Operation2", "Operation2")]
         [DataRow("O01", "Operation1")]
         [TestMethod]
         public void Can_Add_Operation(string name, string IC)
@@ -59,7 +58,7 @@ namespace Testing
             Assert.IsNotNull(LoadedOperation);
         }
 
-        [DataRow("U02","Unit2")]
+        [DataRow("U02", "Unit2")]
         [DataRow("U01", "Unit1")]
         [TestMethod]
         public void Can_Add_UnitProcedure(string name, string IC)
@@ -280,13 +279,13 @@ namespace Testing
         public void Can_Get_Phase_By_Operation(int position)
         {
             //Arrange
-            Phases phase = new Phases("P1","Phase1");
+            Phases phase = new Phases("P1", "Phase1");
             Operations operation1 = new Operations("O1", "Operation1");
             Operations operation2 = new Operations("O2", "Operation2");
 
             operation1.Phases.Add(phase);
             operation2.Phases.Add(phase);
-        
+
             //Execute
             _basesRepository.Add(phase);
             _basesRepository.Add(operation1);
@@ -297,7 +296,7 @@ namespace Testing
             Assert.IsNotNull(loadedOperation);
             Assert.IsTrue(position < loadedOperation.Phases.Count);
             Phases loadedPhase = loadedOperation.Phases.First();
-            Assert.AreEqual(loadedPhase,phase);
+            Assert.AreEqual(loadedPhase, phase);
         }
     }
 }

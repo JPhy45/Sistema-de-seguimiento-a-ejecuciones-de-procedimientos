@@ -5,7 +5,6 @@ using DataAccess.Contexts;
 using DataAccess.Repositories.Executions;
 using Domain.Domain.Entities;
 using Domain.Domain.Utilities;
-using System.CodeDom;
 using Tests.Utilities;
 
 namespace Testing
@@ -23,7 +22,7 @@ namespace Testing
             _unitOfWork = new UnitOfWork(Context);
 
         }
-        [DataRow("P01","Phase1")]
+        [DataRow("P01", "Phase1")]
         [TestMethod]
         public void Can_Add_PhaseExecution(string name, string IC)
         {
@@ -42,10 +41,10 @@ namespace Testing
             Assert.IsNotNull(loadedPhaseExecution);
         }
 
-        [DataRow("O01","Operation1")]
+        [DataRow("O01", "Operation1")]
         [TestMethod]
         public void Can_Add_OperationExecution(string name, string IC)
-        {       
+        {
             //Arrange
             Operations operations = new Operations(name, IC);
             OperationExecution operationExecution = new OperationExecution(operations);
@@ -58,7 +57,7 @@ namespace Testing
             Assert.IsNotNull(LoadedOperationExecution);
         }
 
-        [DataRow("U01","Unit1")]
+        [DataRow("U01", "Unit1")]
         [TestMethod]
         public void Can_Add_UnitExecution(string name, string IC)
         {
@@ -81,7 +80,7 @@ namespace Testing
             //Arrange
             var PhaseExecutions = _executionRepository.GetAllExecutions<PhaseExecution>().ToList();
             Assert.IsNotNull(PhaseExecutions);
-            Assert.IsTrue(position <  PhaseExecutions.Count);
+            Assert.IsTrue(position < PhaseExecutions.Count);
             PhaseExecution PhaseExecutionToGet = PhaseExecutions[position];
 
             //Execute
@@ -98,14 +97,14 @@ namespace Testing
             //Arrange
             var OperationExecutions = _executionRepository.GetAllExecutions<OperationExecution>().ToList();
             Assert.IsNotNull(OperationExecutions);
-            Assert.IsTrue (position < OperationExecutions.Count);
+            Assert.IsTrue(position < OperationExecutions.Count);
             OperationExecution OperationExecutionToGet = OperationExecutions[position];
 
             //Execute
             OperationExecution? loadedOperationExecution = _executionRepository.GetExecutionById<OperationExecution>(OperationExecutionToGet.Id);
-        
+
             //Assert
-            Assert.IsNotNull (loadedOperationExecution);
+            Assert.IsNotNull(loadedOperationExecution);
         }
 
         [DataRow(0)]
@@ -120,9 +119,9 @@ namespace Testing
 
             //Execute
             UnitExecution? loadedUnitExecution = _executionRepository.GetExecutionById<UnitExecution>(unitExecutionToGet.Id);
-            
+
             //Assert
-            Assert.IsNotNull (loadedUnitExecution);
+            Assert.IsNotNull(loadedUnitExecution);
         }
 
         [TestMethod]
@@ -177,7 +176,7 @@ namespace Testing
             //Arrange
             var OperationExecutions = _executionRepository.GetAllExecutions<OperationExecution>().ToList();
             Assert.IsNotNull(OperationExecutions);
-            Assert.IsTrue(position <OperationExecutions.Count);
+            Assert.IsTrue(position < OperationExecutions.Count);
             OperationExecution OperationExecutionToUpdate = OperationExecutions[position];
             DateTime Refresh = DateTime.Now;
             DateTime RefreshEnd = DateTime.Now;

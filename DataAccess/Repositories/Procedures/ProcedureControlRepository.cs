@@ -21,7 +21,7 @@ namespace DataAccess.Repositories.Procedures
         {
             return _context.Set<T>().ToList();
         }
-        public T? GetById<T> (Guid id) where T : ProcedureControl
+        public T? GetById<T>(Guid id) where T : ProcedureControl
         {
             return _context.Set<T>().FirstOrDefault(x => x.Id == id);
         }
@@ -29,7 +29,7 @@ namespace DataAccess.Repositories.Procedures
         {
             _context.Base.Update(bases);
         }
-    
-    
+
+
     }
 }

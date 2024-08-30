@@ -1,8 +1,8 @@
-using DataAccess.FluentConfigurations.Procedures;
 using DataAccess.FluentConfigurations.Executions;
-using Microsoft.EntityFrameworkCore;
+using DataAccess.FluentConfigurations.Procedures;
 using Domain.Domain.Entities;
 using Domain.Domain.Utilities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Contexts
 {

@@ -1,14 +1,14 @@
 ﻿using Contracts;
-using Contracts.Procedures;
 using Contracts.Executions;
-using DataAccess.Contexts;
+using Contracts.Procedures;
 using DataAccess;
-using Microsoft.EntityFrameworkCore;
-using Domain.Domain.Entities;
-using Tests.Utilities;
+using DataAccess.Contexts;
 using DataAccess.Repositories.Executions;
 using DataAccess.Repositories.Procedures;
+using Domain.Domain.Entities;
 using Domain.Domain.Utilities;
+using Microsoft.EntityFrameworkCore;
+using Tests.Utilities;
 
 internal class Program
 {
@@ -23,14 +23,14 @@ internal class Program
             context.Database.Migrate();
 
         IUnitOfWork UnitOfWork = new UnitOfWork(context);
-        IExecutionRepository ExecutionRepository = new ExecutionRepository (context);
+        IExecutionRepository ExecutionRepository = new ExecutionRepository(context);
         IProcedureControlRepository BaseRepository = new ProcedureControlRepository(context);
 
         Phases phase1 = new Phases("P1", "Phase 1");
         Phases phase2 = new Phases("P2", "Phase 2");
         Operations Operation1 = new Operations("O1", "Operation 1");
         Operations Operation2 = new Operations("O2", "Operation 2");
-        UnitProcedure Unit1 = new UnitProcedure("U1","Unit 1");
+        UnitProcedure Unit1 = new UnitProcedure("U1", "Unit 1");
         UnitProcedure Unit2 = new UnitProcedure("U2", "Unit 2");
 
         PhaseExecution phaseExecution = new PhaseExecution(phase2);
@@ -62,7 +62,7 @@ internal class Program
 
         BaseRepository.Delete(phase1);
         UnitOfWork.SaveChanges();
-        
+
         Phases? deletedPhase = BaseRepository.GetById<Phases>(phase1.Id);
         if (deletedPhase == null)
             Console.WriteLine($"Phase {phase1.Name} eliminada Correctamente");
