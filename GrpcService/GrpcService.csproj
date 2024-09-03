@@ -6,47 +6,23 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Protos\Common.proto" />
-    <None Remove="Protos\OperationExecution.proto" />
-    <None Remove="Protos\Operations.proto" />
-    <None Remove="Protos\PhaseExecution.proto" />
-    <None Remove="Protos\Phases.proto" />
-    <None Remove="Protos\UnitProcedure.proto" />
-    <None Remove="Protos\UnitProcedureExecution.proto" />
-  </ItemGroup>
-
 	<ItemGroup>
-		<Protobuff Include="*.proto" GrpcService="Both"/>
+		<Protobuff Include="*.proto" GrpcService="Both" />
 	</ItemGroup>
-  <ItemGroup>
-    <Protobuf Include="Protos\Common.proto">
-      <GrpcService>Both</GrpcService>
-    </Protobuf>
-    <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\OperationExecution.proto">
-      <GrpcService>Both</GrpcService>
-    </Protobuf>
-    <Protobuf Include="Protos\Operations.proto">
-      <GrpcService>Both</GrpcService>
-    </Protobuf>
-    <Protobuf Include="Protos\PhaseExecution.proto">
-      <GrpcService>Both</GrpcService>
-    </Protobuf>
-    <Protobuf Include="Protos\Phases.proto">
-      <GrpcService>Both</GrpcService>
-    </Protobuf>
-    <Protobuf Include="Protos\UnitProcedure.proto">
-      <GrpcService>Both</GrpcService>
-    </Protobuf>
-    <Protobuf Include="Protos\UnitProcedureExecution.proto">
-      <GrpcService>Both</GrpcService>
-    </Protobuf>
-  </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Google.Protobuf" Version="3.27.2" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.63.0" />
+    <PackageReference Include="MediatR" Version="12.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aplication\Aplication.csproj" />
+    <ProjectReference Include="..\Contracts\Contracts.csproj" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\gProtos\gProtos.csproj" />
+    <ProjectReference Include="..\Sistema de seguimiento a ejecuciones de procedimientos\Domain.csproj" />
   </ItemGroup>
 
 </Project>

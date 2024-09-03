@@ -1,0 +1,45 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GgProtos";
+
+package Protobuffers;
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "common.proto";
+import "Operation.proto";
+
+
+service OperationExecution{
+	rpc CreateOperationExecution (CreateOperationExecutionRequest) returns (OperationExecutionDTO);
+	rpc GetOperationExecution (GetRequest) returns (NullableOperationExecutionDTO);
+	rpc GetAllOperationExecution (google.protobuf.Empty) returns (OperationExecutions);
+    rpc UpdateOperationExecution(OperationExecutionDTO) returns (google.protobuf.Empty);
+	rpc DeleteOperationExecution(DeleteRequest) returns (google.protobuf.Empty);
+    } 
+
+	message OperationExecutionDTO{
+		OperationDTO operation=1;
+		string UpperCode=2;
+		string ID=3;
+		string StartTime=4;
+		string EndTime=5;
+		ExecutionState State=6;
+		string OperationID=7;
+	}
+
+	message NullableOperationExecutionDTO{
+	oneof kind{
+		google.protobuf.NullValue null = 1;
+		OperationExecutionDTO OperationExecution = 2;
+	}
+	}
+
+	message OperationExecutions{
+	repeated OperationExecutionDTO items = 1;
+}
+
+message CreateOperationExecutionRequest{
+  OperationExecutionDTO operation=1;
+}

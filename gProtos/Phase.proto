@@ -1,0 +1,44 @@
+﻿
+syntax = "proto3";
+
+option csharp_namespace = "gProtos";
+
+package Protobuffers;
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "common.proto";
+
+
+service Phase{
+	rpc CreatePhase (CreatePhaseRequest) returns (PhaseDTO);
+	rpc GetPhase (GetRequest) returns (NullablePhaseDTO);
+	rpc GetAllPhases (google.protobuf.Empty) returns (Phases);
+    rpc UpdatePhase(PhaseDTO) returns (google.protobuf.Empty);
+	rpc DeletePhase(DeleteRequest) returns (google.protobuf.Empty);
+    } 
+
+
+	message PhaseDTO{
+		string id=1;
+		string IdentificationCode=2;
+		string Name=3;
+		string Description=4;
+	}
+
+	message NullablePhaseDTO{
+	oneof kind{
+		google.protobuf.NullValue null = 1;
+		PhaseDTO Phases = 2;
+	}
+	}
+
+	message Phases{
+	repeated PhaseDTO items = 1;
+}
+
+message CreatePhaseRequest{
+  string IdentificationCode=1;
+  string Name=2;
+}

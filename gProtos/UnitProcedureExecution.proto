@@ -1,0 +1,44 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "gProtos";
+
+package Protobuffers;
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "common.proto";
+import "UnitProcedure.proto";
+
+
+service UnitProcedureExecution{
+	rpc CreateUnitProcedureExecution (CreateUnitProcedureExecutionRequest) returns (UnitProcedureExecutionDTO);
+	rpc GetUnitProcedureExecution (GetRequest) returns (NullableUnitProcedureExecutionDTO);
+	rpc GetAllUnitProcedureExecution (google.protobuf.Empty) returns (UnitProcedureExecutions);
+    rpc UpdateUnitProcedureExecution(UnitProcedureExecutionDTO) returns (google.protobuf.Empty);
+	rpc DeleteUnitProcedureExecution(DeleteRequest) returns (google.protobuf.Empty);
+    } 
+
+	message UnitProcedureExecutionDTO{
+		UnitProcedureDTO UnitProcedure=1;
+		string ID=2;
+		string StartTime=3;
+		string EndTime=4;
+		ExecutionState State=5;
+		string UnitID=6;
+	}
+
+	message NullableUnitProcedureExecutionDTO{
+	oneof kind{
+		google.protobuf.NullValue null = 1;
+		UnitProcedureExecutionDTO UnitProcedureExecution = 2;
+	}
+	}
+
+	message UnitProcedureExecutions{
+	repeated UnitProcedureExecutionDTO items = 1;
+}
+
+message CreateUnitProcedureExecutionRequest{
+  UnitProcedureDTO UnitProcedure=1;
+}
