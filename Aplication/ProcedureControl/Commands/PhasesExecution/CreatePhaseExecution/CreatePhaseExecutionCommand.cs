@@ -12,5 +12,5 @@ using Domain.Domain.Utilities;
 namespace Aplication.ProcedureControl.Commands.CreatePhaseExecution
 {
     public record CreatePhaseExecutionCommand(
-        Phases Phase) : ICommand<PhaseExecution>;
+        Domain.Domain.Entities.Phases Phase) : ICommand<PhaseExecution>;
 }

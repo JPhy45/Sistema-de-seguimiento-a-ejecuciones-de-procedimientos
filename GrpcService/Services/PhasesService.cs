@@ -7,6 +7,7 @@ using Grpc.Core;
 using Aplication.ProcedureControl.Queries.GetPhaseById;
 using Google.Protobuf.WellKnownTypes;
 using Aplication.ProcedureControl.Queries.GetAllPhases;
+using GrpcService.Mappers;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using Aplication.ProcedureControl.Commands.UpdatePhase;
 
