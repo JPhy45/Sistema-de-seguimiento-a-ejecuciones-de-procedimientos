@@ -1,4 +1,5 @@
-﻿using Domain.Domain.Entities;
+﻿using AutoMapper;
+using Domain.Domain.Entities;
 using Domain.Domain.Utilities;
 using gProtos;
 using Grpc.Net.Client;
@@ -90,11 +91,12 @@ internal class Program
 
         Console.WriteLine("Presione una tecla para crear la ejecucion de una fase");
         Console.ReadKey();
+        var PhaseToExecute = new PhaseDTO() { Id = new Guid().ToString()};
         var createResponse1 = client1.CreatePhaseExecution(new CreatePhaseExecutionRequest()
         {
-            Phase = createResponse,
-            
-        }) ;
+            Phase = PhaseToExecute
+
+        });
 
         if (createResponse is null)
         {
