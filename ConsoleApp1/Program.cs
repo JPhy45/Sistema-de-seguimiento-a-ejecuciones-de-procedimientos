@@ -1,71 +1,103 @@
-﻿using Contracts;
-using Contracts.Executions;
-using Contracts.Procedures;
-using DataAccess;
-using DataAccess.Contexts;
-using DataAccess.Repositories.Executions;
-using DataAccess.Repositories.Procedures;
-using Domain.Domain.Entities;
+﻿using Domain.Domain.Entities;
 using Domain.Domain.Utilities;
+using gProtos;
+using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
-using Tests.Utilities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 internal class Program
 {
-    static async Task Main(string[] args)
+    static void Main(string[] args)
     {
-        if (File.Exists("Data.sqlite"))
-            File.Delete("Data.sqlite");
+        Console.WriteLine("Presione una tecla para conectar");
+        Console.ReadKey();
 
-        AplicationContext context = new AplicationContext(ConnectionStringProvider.GetConnectionString());
+        Console.WriteLine("Creating channel and client");
+        var httpHandler = new HttpClientHandler();
+        httpHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+        var channel = GrpcChannel.ForAddress("http://localhost:5051", new GrpcChannelOptions { HttpHandler = httpHandler });
+        if (channel is null)
+        {
+            Console.WriteLine("Cannot connect");
+            channel.Dispose();
+            return;
+        }
 
-        if (!context.Database.CanConnect())
-            context.Database.Migrate();
+        var client = new gProtos.Phase.PhaseClient(channel);
 
-        IUnitOfWork UnitOfWork = new UnitOfWork(context);
-        IExecutionRepository ExecutionRepository = new ExecutionRepository(context);
-        IProcedureControlRepository BaseRepository = new ProcedureControlRepository(context);
+        Console.WriteLine("Presione una tecla para crear una fase");
+        Console.ReadKey();
+        var createResponse = client.CreatePhase(new CreatePhaseRequest()
+        {
+            Name = "Fase 1",
+            IdentificationCode="0001"
+        });
 
-        Phases phase1 = new Phases("P1", "Phase 1");
-        Phases phase2 = new Phases("P2", "Phase 2");
-        Operations Operation1 = new Operations("O1", "Operation 1");
-        Operations Operation2 = new Operations("O2", "Operation 2");
-        UnitProcedure Unit1 = new UnitProcedure("U1", "Unit 1");
-        UnitProcedure Unit2 = new UnitProcedure("U2", "Unit 2");
-
-        PhaseExecution phaseExecution = new PhaseExecution(phase2);
-        OperationExecution operationExecution = new OperationExecution(Operation2);
-        UnitExecution unitExecution = new UnitExecution(Unit1);
-
-        BaseRepository.Add(phase1);
-        BaseRepository.Add(phase2);
-        BaseRepository.Add(Operation2);
-        BaseRepository.Add(Operation1);
-        BaseRepository.Add(Unit1);
-        BaseRepository.Add(Unit2);
-
-        ExecutionRepository.AddExecution(phaseExecution);
-        ExecutionRepository.AddExecution(operationExecution);
-        ExecutionRepository.AddExecution(unitExecution);
-
-        context.SaveChanges();
-
-        Phases? phasetoload = BaseRepository.GetById<Phases>(phaseExecution.PhaseId);
-        if (phasetoload == null)
-            Console.WriteLine("La entidad Phase de la Ejecucion de Fase 1 no se encuentra en BD");
+        if (createResponse is null)
+        {
+            Console.WriteLine("Cannot create phase");
+            channel.Dispose();
+            return;
+        }
         else
-            Console.WriteLine($"Se esta ejecutando la fase {phasetoload.Name}");
-        phase1.Description = "TODELETE";
+        {
+            Console.WriteLine($"Creación exitosa.");
+        }
 
-        BaseRepository.Update(phase1);
-        UnitOfWork.SaveChanges();
+        Console.WriteLine("Presione una tecla para obtener todas las fases");
+        Console.ReadKey();
+        var getResponse = client.GetAllPhases(new Google.Protobuf.WellKnownTypes.Empty());
+        if (getResponse.Items is null)
+        {
+            Console.WriteLine("Cannot get phase");
+            channel.Dispose();
+            return;
+        }
+        else
+        {
+            Console.WriteLine($"Obtención exitosa de {getResponse.Items.Count} fases");
+        }
 
-        BaseRepository.Delete(phase1);
-        UnitOfWork.SaveChanges();
+        Console.WriteLine($"Presione una tecla para obtener la fase con Id {createResponse.Id}");
+        Console.ReadKey();
+        var getByIdResponse = client.GetPhase(new GetRequest() { Id = createResponse.Id.ToString() });
+        if (getByIdResponse is null)
+        {
+            Console.WriteLine("Cannot get fase");
+            channel.Dispose();
+            return;
+        }
+        else
+        {
+            Console.WriteLine($"Obtención exitosa de la fase {getByIdResponse.Phases.Id}");
+        }
 
-        Phases? deletedPhase = BaseRepository.GetById<Phases>(phase1.Id);
-        if (deletedPhase == null)
-            Console.WriteLine($"Phase {phase1.Name} eliminada Correctamente");
+        Console.WriteLine("Presione una tecla para modificar la fase");
+        Console.ReadKey();
+        createResponse.Name= "Fase 2";
+        client.UpdatePhase(createResponse);
+
+        var updatedGetResponse = client.GetPhase(new GetRequest() { Id = createResponse.Id });
+        if (updatedGetResponse is not null &&
+            updatedGetResponse.KindCase == NullablePhaseDTO.KindOneofCase.Phases &&
+            updatedGetResponse.Phases.Name == createResponse.Name)
+        {
+            Console.WriteLine($"Modificación exitosa.");
+        }
+
+        Console.WriteLine("Presione una tecla para eliminar la fase");
+        Console.ReadKey();
+
+        client.DeletePhase(new DeleteRequest() { Id = createResponse.Id });
+        var deletedGetResponse = client.GetPhase(new GetRequest() { Id = createResponse.Id });
+        if (deletedGetResponse is null ||
+            deletedGetResponse.KindCase != NullablePhaseDTO.KindOneofCase.Phases)
+        {
+            Console.WriteLine($"Eliminación exitosa.");
+        }
+
+
+        channel.Dispose();
 
 
     }
