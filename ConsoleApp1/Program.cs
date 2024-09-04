@@ -170,6 +170,69 @@ internal class Program
         }
 
 
+
+        var client2 = new gProtos.Operation.OperationClient(channel);
+
+        Console.WriteLine("Presione una tecla para crear una operacion");
+        Console.ReadKey();
+        var createResponse2 = client2.CreateOperation(new CreateOperationRequest()
+        {
+            Name = "Operation 1",
+            IdentificationCode = "0004"
+        });
+
+        if (createResponse2 is null)
+        {
+            Console.WriteLine("Cannot create operation");
+            channel.Dispose();
+            return;
+        }
+        else
+        {
+            Console.WriteLine($"Creación exitosa.");
+        }
+
+        Console.WriteLine("Presione una tecla para obtener todas las operaciones");
+        Console.ReadKey();
+        var getResponse2 = client2.GetAllOperations(new Google.Protobuf.WellKnownTypes.Empty());
+        if (getResponse2.Items is null)
+        {
+            Console.WriteLine("Cannot get Operation");
+            channel.Dispose();
+            return;
+        }
+        else
+        {
+            Console.WriteLine($"Obtención exitosa de {getResponse2.Items.Count} operaciones");
+        }
+
+        Console.WriteLine($"Presione una tecla para obtener la fase con Id {createResponse2.Id}");
+        Console.ReadKey();
+        var getByIdResponse2 = client2.GetOperation(new GetRequest() { Id = createResponse2.Id.ToString() });
+        if (getByIdResponse2 is null)
+        {
+            Console.WriteLine("Cannot get operation");
+            channel.Dispose();
+            return;
+        }
+        else
+        {
+            Console.WriteLine($"Obtención exitosa de la fase {getByIdResponse2.Operations.Id}");
+        }
+
+        Console.WriteLine("Presione una tecla para modificar la operacion");
+        Console.ReadKey();
+        createResponse2.Name = "Operation 2";
+        client2.UpdateOperations(createResponse2);
+
+        var updatedGetResponse2 = client2.GetOperation(new GetRequest() { Id = createResponse2.Id });
+        if (updatedGetResponse2 is not null &&
+            updatedGetResponse2.KindCase == NullableOperationDTO.KindOneofCase.Operations &&
+            updatedGetResponse2.Operations.Name == createResponse2.Name)
+        {
+            Console.WriteLine($"Modificación exitosa.");
+        }
+
         channel.Dispose();
 
 
