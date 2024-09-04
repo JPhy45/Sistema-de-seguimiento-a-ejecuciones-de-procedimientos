@@ -85,6 +85,79 @@ internal class Program
             Console.WriteLine($"Modificación exitosa.");
         }
 
+        
+        var client1 = new gProtos.PhaseExecution.PhaseExecutionClient(channel);
+
+        Console.WriteLine("Presione una tecla para crear la ejecucion de una fase");
+        Console.ReadKey();
+        var createResponse1 = client1.CreatePhaseExecution(new CreatePhaseExecutionRequest()
+        {
+            Phase = createResponse,
+            
+        }) ;
+
+        if (createResponse is null)
+        {
+            Console.WriteLine("Cannot create PhaseExecution");
+            channel.Dispose();
+            return;
+        }
+        else
+        {
+            Console.WriteLine($"Creación exitosa.");
+        }
+
+        Console.WriteLine("Presione una tecla para obtener todas las ejecuciones de fase");
+        Console.ReadKey();
+        var getResponse1 = client1.GetAllPhaseExecution(new Google.Protobuf.WellKnownTypes.Empty());
+        if (getResponse1.Items is null)
+        {
+            Console.WriteLine("Cannot get phaseExecution");
+            channel.Dispose();
+            return;
+        }
+        else
+        {
+            Console.WriteLine($"Obtención exitosa de {getResponse1.Items.Count} ejecuciones de fase");
+        }
+
+        Console.WriteLine($"Presione una tecla para obtener la fase con Id {createResponse1.ID}");
+        Console.ReadKey();
+        var getByIdResponse1 = client1.GetPhaseExecution(new GetRequest() { Id = createResponse1.ID.ToString() });
+        if (getByIdResponse1 is null)
+        {
+            Console.WriteLine("Cannot get faseExecution");
+            channel.Dispose();
+            return;
+        }
+        else
+        {
+            Console.WriteLine($"Obtención exitosa de la fase {getByIdResponse1.PhaseExecution.ID}");
+        }
+
+        Console.WriteLine("Presione una tecla para modificar la faseExecution");
+        Console.ReadKey();
+        createResponse1.State = ExecutionState.Paused;
+        client1.UpdatePhaseExecution(createResponse1);
+
+        var updatedGetResponse1 = client1.GetPhaseExecution(new GetRequest() { Id = createResponse1.ID });
+        if (updatedGetResponse1 is not null &&
+            updatedGetResponse1.KindCase == NullablePhaseExecutionDTO.KindOneofCase.PhaseExecution &&
+            updatedGetResponse1.PhaseExecution.State== createResponse1.State)
+        {
+            Console.WriteLine($"Modificación exitosa.");
+        }
+
+        Console.WriteLine("Presione una tecla para eliminar la faseExecution");
+        Console.ReadKey();
+
+        client1.DeletePhaseExecution(new DeleteRequest() { Id = createResponse1.ID });
+        var deletedGetResponse1 = client1.GetPhaseExecution(new GetRequest() { Id = createResponse1.ID });
+        if (deletedGetResponse1 is null ||
+            deletedGetResponse1.KindCase != NullablePhaseExecutionDTO.KindOneofCase.PhaseExecution)
+        {
+            Console.WriteLine($"Eliminación exitosa.");
+        }
         Console.WriteLine("Presione una tecla para eliminar la fase");
         Console.ReadKey();
 
