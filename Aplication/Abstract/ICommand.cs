@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Aplication.Abstract
 {
-    public interface ICommand:IRequest
+    public interface ICommand : IRequest
     {
 
     }

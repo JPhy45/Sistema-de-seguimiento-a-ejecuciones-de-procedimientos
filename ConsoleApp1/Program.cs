@@ -5,6 +5,7 @@ using gProtos;
 using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using ConsoleApp1;
 
 internal class Program
 {
@@ -26,24 +27,25 @@ internal class Program
 
         var client = new gProtos.Phase.PhaseClient(channel);
 
-        Console.WriteLine("Presione una tecla para crear una fase");
-        Console.ReadKey();
-        var createResponse = client.CreatePhase(new CreatePhaseRequest()
-        {
-            Name = "Fase 1",
-            IdentificationCode="0001"
-        });
+          Console.WriteLine("Presione una tecla para crear una fase");
+          Console.ReadKey();
+          var createResponse = client.CreatePhase(new CreatePhaseRequest()
+          {
+              Name = "Fase 1",
+              IdentificationCode="0001"
+          });
 
-        if (createResponse is null)
-        {
-            Console.WriteLine("Cannot create phase");
-            channel.Dispose();
-            return;
-        }
-        else
-        {
-            Console.WriteLine($"Creación exitosa.");
-        }
+          if (createResponse is null)
+          {
+              Console.WriteLine("Cannot create phase");
+              channel.Dispose();
+              return;
+          }
+          else
+          {
+              Console.WriteLine($"Creación exitosa.");
+          }
+        //var createResponse = PhaseConsoleHandler.CreatePhaseAPI(channel, client);
 
         Console.WriteLine("Presione una tecla para obtener todas las fases");
         Console.ReadKey();
@@ -219,12 +221,13 @@ internal class Program
         }
         else
         {
-            Console.WriteLine($"Obtención exitosa de la fase {getByIdResponse2.Operations.Id}");
+            Console.WriteLine($"Obtención exitosa de la operacion {getByIdResponse2.Operations.Id}");
         }
 
         Console.WriteLine("Presione una tecla para modificar la operacion");
         Console.ReadKey();
-        createResponse2.Name = "Operation 2";
+        createResponse2.Name = "Operation 2",
+        createResponse2.Phases=;
         client2.UpdateOperations(createResponse2);
 
         var updatedGetResponse2 = client2.GetOperation(new GetRequest() { Id = createResponse2.Id });

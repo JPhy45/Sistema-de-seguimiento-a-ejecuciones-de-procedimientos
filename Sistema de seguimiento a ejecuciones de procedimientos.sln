@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcService", "GrpcService\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aplication", "Aplication\Aplication.csproj", "{88B2B114-A27A-4F09-AA7F-D5290F56E60D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gProtos", "gProtos\gProtos.csproj", "{93CA705D-29FE-45CB-B338-EFA30A42286C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gProtos", "gProtos\gProtos.csproj", "{93CA705D-29FE-45CB-B338-EFA30A42286C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{77AA9EF5-C244-4D1A-BF0E-AB1B8120F3EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{93CA705D-29FE-45CB-B338-EFA30A42286C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93CA705D-29FE-45CB-B338-EFA30A42286C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93CA705D-29FE-45CB-B338-EFA30A42286C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77AA9EF5-C244-4D1A-BF0E-AB1B8120F3EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77AA9EF5-C244-4D1A-BF0E-AB1B8120F3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77AA9EF5-C244-4D1A-BF0E-AB1B8120F3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77AA9EF5-C244-4D1A-BF0E-AB1B8120F3EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
