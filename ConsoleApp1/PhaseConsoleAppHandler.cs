@@ -11,8 +11,8 @@ namespace ConsoleApp1
 {
     public static class PhaseConsoleAppHandler
     {
-        public static PhaseDTO? CreatePhaseAPI (GrpcChannel channel, gProtos.Phase.PhaseClient client)
-            {
+        public static PhaseDTO? CreatePhaseAPI(GrpcChannel channel, gProtos.Phase.PhaseClient client)
+        {
             var createResponse = client.CreatePhase(new CreatePhaseRequest()
             {
                 Name = "Fase 1",
@@ -32,9 +32,9 @@ namespace ConsoleApp1
             }
 
 
-        }    
-        
-        public static void GetAllPhasesAPI (GrpcChannel channel, gProtos.Phase.PhaseClient client, PhaseDTO createResponse)
+        }
+
+        public static void GetAllPhasesAPI(GrpcChannel channel, gProtos.Phase.PhaseClient client, PhaseDTO createResponse)
         {
             var getResponse = client.GetAllPhases(new Google.Protobuf.WellKnownTypes.Empty());
             if (getResponse.Items is null)
@@ -62,7 +62,7 @@ namespace ConsoleApp1
                 Console.WriteLine($"Obtención exitosa de la fase {getByIdResponse.Phases.Id}");
             }
         }
-        
+
         public static void GetPhaseByIdAPI(GrpcChannel channel, gProtos.Phase.PhaseClient client, PhaseDTO createResponse)
         {
             createResponse.Name = "Fase 2";
@@ -76,7 +76,7 @@ namespace ConsoleApp1
                 Console.WriteLine($"Modificación exitosa.");
             }
         }
-        
+
         public static void DeletePhaseAPI(GrpcChannel channel, gProtos.Phase.PhaseClient client, PhaseDTO createResponse)
         {
             client.DeletePhase(new DeleteRequest() { Id = createResponse.Id });
@@ -86,6 +86,23 @@ namespace ConsoleApp1
             {
                 Console.WriteLine($"Eliminación exitosa.");
             }
+        }
+
+        public static void UpdatePhaseAPI(GrpcChannel channel, gProtos.Phase.PhaseClient client, PhaseDTO createResponse)
+        {
+            Console.WriteLine("Presione una tecla para modificar la fase");
+            Console.ReadKey();
+            createResponse.Name = "Fase 2";
+            client.UpdatePhase(createResponse);
+
+            var updatedGetResponse = client.GetPhase(new GetRequest() { Id = createResponse.Id });
+            if (updatedGetResponse is not null &&
+                updatedGetResponse.KindCase == NullablePhaseDTO.KindOneofCase.Phases &&
+                updatedGetResponse.Phases.Name == createResponse.Name)
+            {
+                Console.WriteLine($"Modificación exitosa.");
+            }
+
         }
 
     }

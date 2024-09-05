@@ -12,6 +12,20 @@ class Program
 {
     static void Main()
     {
+        Console.WriteLine("Presione una tecla para conectar");
+        Console.ReadKey();
+
+        Console.WriteLine("Creating channel and client");
+        var httpHandler = new HttpClientHandler();
+        httpHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+        var channel = GrpcChannel.ForAddress("http://localhost:5051", new GrpcChannelOptions { HttpHandler = httpHandler });
+        if (channel is null)
+        {
+            Console.WriteLine("Cannot connect");
+            channel.Dispose();
+            return;
+        }
+
         bool salir = false;
         while (!salir)
         {
@@ -35,22 +49,22 @@ class Program
                 switch (opcion)
                 {
                     case 1:
-                        SubMenuFase();
+                        SubMenuFase(channel);
                         break;
                     case 2:
-                        SubMenuOperacion();
+                        SubMenuOperacion(channel);
                         break;
                     case 3:
-                        SubMenuUnidadProcedimiento();
+                        SubMenuUnidadProcedimiento(channel);
                         break;
                     case 4:
-                        SubMenuEjecucionFase();
+                        SubMenuEjecucionFase(channel);
                         break;
                     case 5:
-                        SubMenuEjecucionOperacion();
+                        SubMenuEjecucionOperacion(channel);
                         break;
                     case 6:
-                        SubMenuEjecucionUnidadProcedimiento();
+                        SubMenuEjecucionUnidadProcedimiento(channel);
                         break;
                     case 7:
                         continue;
@@ -70,8 +84,9 @@ class Program
         }
     }
 
-    static void SubMenuFase()
+    static void SubMenuFase(GrpcChannel channel)
     {
+        var Phaseclient = new gProtos.Phase.PhaseClient(channel);
         bool salirSubMenu = false;
         while (!salirSubMenu)
         {
@@ -95,22 +110,29 @@ class Program
                     case 1:
                         Console.WriteLine("Crear fase");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
+                        PhaseConsoleAppHandler.CreatePhaseAPI(channel, Phaseclient);
                         Console.ReadKey();
                         break;
                     case 2:
                         Console.WriteLine("Obtener información de la fase");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
+                        var PhaseGetTest = PhaseConsoleAppHandler.CreatePhaseAPI(channel, Phaseclient);
+                        PhaseConsoleAppHandler.GetAllPhasesAPI(channel, Phaseclient, PhaseGetTest);
                         Console.ReadKey();
                         break;
                     case 3:
                         Console.WriteLine("Actualizar información de la fase");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var PhaseUpdateTest = PhaseConsoleAppHandler.CreatePhaseAPI(channel, Phaseclient);
+                        PhaseConsoleAppHandler.UpdatePhaseAPI(channel, Phaseclient, PhaseUpdateTest);
                         break;
                     case 4:
                         Console.WriteLine("Eliminar información de la fase");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var PhaseDeleteTest= PhaseConsoleAppHandler.CreatePhaseAPI( channel, Phaseclient);
+                        PhaseConsoleAppHandler.DeletePhaseAPI(channel, Phaseclient, PhaseDeleteTest);
                         break;
                     case 5:
                         return;
@@ -130,8 +152,9 @@ class Program
         }
     }
 
-    static void SubMenuOperacion()
+    static void SubMenuOperacion(GrpcChannel channel)
     {
+        var Operationclient = new gProtos.Operation.OperationClient(channel);
         bool salirSubMenu = false;
         while (!salirSubMenu)
         {
@@ -156,21 +179,28 @@ class Program
                         Console.WriteLine("Crear Operacion");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        OperationConsoleAppHandler.CreateOperationAPI(channel, Operationclient);
                         break;
                     case 2:
                         Console.WriteLine("Obtener información de la Operacion");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var OperationGetTest = OperationConsoleAppHandler.CreateOperationAPI(channel, Operationclient);
+                        OperationConsoleAppHandler.GetAllOperationsAPI(channel, Operationclient, OperationGetTest);
                         break;
                     case 3:
                         Console.WriteLine("Actualizar información de la operacion");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var OperationUpdateTest = OperationConsoleAppHandler.CreateOperationAPI(channel, Operationclient);
+                        OperationConsoleAppHandler.UpdateOperationAPI(channel, Operationclient, OperationUpdateTest);
                         break;
                     case 4:
                         Console.WriteLine("Eliminar información de la operacion");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var OperationDeleteTest = OperationConsoleAppHandler.CreateOperationAPI(channel, Operationclient);
+                        OperationConsoleAppHandler.DeleteOperationAPI(channel, Operationclient, OperationDeleteTest);
                         break;
                     case 5:
                         return;
@@ -190,8 +220,9 @@ class Program
         }
     }
 
-    static void SubMenuUnidadProcedimiento()
+    static void SubMenuUnidadProcedimiento(GrpcChannel channel)
     {
+        var Unitclient = new gProtos.UnitProcedure.UnitProcedureClient(channel);
         bool salirSubMenu = false;
         while (!salirSubMenu)
         {
@@ -216,21 +247,28 @@ class Program
                         Console.WriteLine("Crear unidad de procedimiento");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        UnitConsoleAppHandler.CreateUnitAPI(channel, Unitclient);
                         break;
                     case 2:
                         Console.WriteLine("Obtener información de la unidad de procedimiento");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var UnitGetTest = UnitConsoleAppHandler.CreateUnitAPI(channel, Unitclient);
+                        UnitConsoleAppHandler.GetUnitByIdAPI(channel, Unitclient, UnitGetTest);
                         break;
                     case 3:
                         Console.WriteLine("Actualizar información de la unidad de procedimiento");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var UnitUpdateTest = UnitConsoleAppHandler.CreateUnitAPI(channel, Unitclient);
+                        UnitConsoleAppHandler.UpdateOperationAPI(channel, Unitclient, UnitUpdateTest);
                         break;
                     case 4:
                         Console.WriteLine("Eliminar información de la unidad de procedimiento");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var UnitDeleteTest = UnitConsoleAppHandler.CreateUnitAPI(channel, Unitclient);
+                        UnitConsoleAppHandler.DeleteUnitAPI(channel, Unitclient, UnitDeleteTest);
                         break;
                     case 5:
                         return;
@@ -250,8 +288,9 @@ class Program
         }
     }
 
-    static void SubMenuEjecucionFase()
+    static void SubMenuEjecucionFase(GrpcChannel channel)
     {
+        var PhaseExecutionclient = new gProtos.PhaseExecution.PhaseExecutionClient(channel);
         bool salirSubMenu = false;
         while (!salirSubMenu)
         {
@@ -276,21 +315,28 @@ class Program
                         Console.WriteLine("Crear ejecucion de fase");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        PhaseExecutionConsoleAppHandler.CreatePhaseExecutionAPI(channel, PhaseExecutionclient);
                         break;
                     case 2:
                         Console.WriteLine("Obtener información de la ejecucion de fase");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var PhaseExecutionGetTest = PhaseExecutionConsoleAppHandler.CreatePhaseExecutionAPI(channel, PhaseExecutionclient);
+                        PhaseExecutionConsoleAppHandler.GetPhaseExecutionByIdAPI(channel, PhaseExecutionclient, PhaseExecutionGetTest);
                         break;
                     case 3:
                         Console.WriteLine("Actualizar información de la ejecucion de fase");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var PhaseExecutionUpdateTest = PhaseExecutionConsoleAppHandler.CreatePhaseExecutionAPI(channel, PhaseExecutionclient);
+                        PhaseExecutionConsoleAppHandler.UpdatePhaseExecutionAPI(channel, PhaseExecutionclient, PhaseExecutionUpdateTest);
                         break;
                     case 4:
                         Console.WriteLine("Eliminar información de la ejecucion de fase");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var PhaseExecutionDeleteTest = PhaseExecutionConsoleAppHandler.CreatePhaseExecutionAPI(channel, PhaseExecutionclient);
+                        PhaseExecutionConsoleAppHandler.GetPhaseExecutionByIdAPI(channel, PhaseExecutionclient, PhaseExecutionDeleteTest);
                         break;
                     case 5:
                         return;
@@ -310,8 +356,9 @@ class Program
         }
     }
 
-    static void SubMenuEjecucionOperacion()
+    static void SubMenuEjecucionOperacion(GrpcChannel channel)
     {
+        var OperationExecutionclient = new gProtos.OperationExecution.OperationExecutionClient(channel);
         bool salirSubMenu = false;
         while (!salirSubMenu)
         {
@@ -336,21 +383,28 @@ class Program
                         Console.WriteLine("Crear ejecucion de operacion");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        OperationExecutionConsoleAppHandler.CreateOperationExecutionAPI(channel, OperationExecutionclient);
                         break;
                     case 2:
                         Console.WriteLine("Obtener información de la ejecucion de operacion");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var OperationExecutionGetTest = OperationExecutionConsoleAppHandler.CreateOperationExecutionAPI(channel, OperationExecutionclient);
+                        OperationExecutionConsoleAppHandler.GetOperationExecutionByIdAPI(channel, OperationExecutionclient, OperationExecutionGetTest);
                         break;
                     case 3:
                         Console.WriteLine("Actualizar información de la ejecucion de operacion");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var OperationExecutionUpdateTest = OperationExecutionConsoleAppHandler.CreateOperationExecutionAPI(channel, OperationExecutionclient);
+                        OperationExecutionConsoleAppHandler.UpdateOperationExecutionAPI(channel, OperationExecutionclient, OperationExecutionUpdateTest);
                         break;
                     case 4:
                         Console.WriteLine("Eliminar información de la ejecucion de operacion");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var OperationExecutionDeleteTest = OperationExecutionConsoleAppHandler.CreateOperationExecutionAPI(channel, OperationExecutionclient);
+                        OperationExecutionConsoleAppHandler.DeleteOperationExecutionAPI(channel, OperationExecutionclient, OperationExecutionDeleteTest);
                         break;
                     case 5:
                         return;
@@ -370,8 +424,9 @@ class Program
         }
     }
 
-    static void SubMenuEjecucionUnidadProcedimiento()
+    static void SubMenuEjecucionUnidadProcedimiento(GrpcChannel channel)
     {
+        var UnitExecutionClient = new gProtos.UnitProcedureExecution.UnitProcedureExecutionClient(channel);
         bool salirSubMenu = false;
         while (!salirSubMenu)
         {
@@ -396,21 +451,28 @@ class Program
                         Console.WriteLine("Crear Ejecucion de unidad de procedimiento");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        UnitExecutionConsoleAppHandler.CreateUnitProcedureExecutionAPI(channel, UnitExecutionClient);
+
                         break;
                     case 2:
                         Console.WriteLine("Obtener información de la Ejecucion de unidad de procedimiento");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        UnitExecutionConsoleAppHandler.GetAllUnitProcedureExecutionAPI(channel, UnitExecutionClient);
                         break;
                     case 3:
-                        Console.WriteLine("Actualizar información de la Ejecuion de unidad de procedimiento");
+                        Console.WriteLine("Actualizar información de la Ejecucion de unidad de procedimiento");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var UnitExecutionUpdateTest = UnitExecutionConsoleAppHandler.CreateUnitProcedureExecutionAPI(channel, UnitExecutionClient);
+                        UnitExecutionConsoleAppHandler.UpdateUnitProcedureExecutionAPI(channel, UnitExecutionClient, UnitExecutionUpdateTest);
                         break;
                     case 4:
                         Console.WriteLine("Eliminar información de la unidad de procedimiento");
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        var UnitExecutionDeleteTest = UnitExecutionConsoleAppHandler.CreateUnitProcedureExecutionAPI(channel, UnitExecutionClient);
+                        UnitExecutionConsoleAppHandler.UpdateUnitProcedureExecutionAPI(channel, UnitExecutionClient, UnitExecutionDeleteTest);
                         break;
                     case 5:
                         return;

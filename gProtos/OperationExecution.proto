@@ -41,5 +41,5 @@ service OperationExecution{
 }
 
 message CreateOperationExecutionRequest{
-  OperationExecutionDTO operation=1;
+  OperationDTO operation=1;
 }
